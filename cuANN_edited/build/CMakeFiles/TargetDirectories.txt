@@ -1,0 +1,12 @@
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/abelone.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/cuANN.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/diabetes.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/gene.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/load_xor_net.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/mushroom.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/robot.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/soybean.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/thyroid.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/xor_sigmoid.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/xor_tanh.dir
+/home/home1/rachel/Documents/Architecture/final_project/cuANN_edited/build/CMakeFiles/xor_tanh_scaled.dir
