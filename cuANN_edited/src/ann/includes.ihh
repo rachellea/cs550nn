@@ -1,0 +1,27 @@
+#ifdef __CUDACC__
+#include <cuda.h>
+#endif
+
+#include <vector>
+#include <cmath>
+#include <iostream>
+#include <chrono>
+#include <ctime>
+#include <iomanip> 
+
+#include <thrust/device_vector.h>
+#include <thrust/host_vector.h>
+#include <thrust/iterator/counting_iterator.h>
+
+#include <boost/serialization/list.hpp>
+#include <boost/serialization/split_member.hpp>
+#include <boost/serialization/utility.hpp>
+#include <boost/serialization/vector.hpp>
+
+#include "data/data.hpp"
+#include "dim_find/dim_find.hpp"
+#include "helpers/helpers.hpp"
+#include "kernel/kernel.hpp"
+#include "trainer/trainer.hpp"
+#include "trainer/trainer_data.hpp"
+#include "trainer/trainer_pool.hpp"
