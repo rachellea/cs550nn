@@ -214,31 +214,34 @@ double const *genann_run(genann const *ann, double const *inputs) {
 }
 
 
+/* Kernel for calculating output layer deltas*/
+__global__ void calculate_output_layer_deltas(genann *d_genann) {
+        double const *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
+        double *d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers; /* First delta. */
+        double const *t = desired_outputs; /* First desired output. */
+        
+        int i = blockIdx.x*blockDim.x + threadIdx.x;
+         if (i < d_genann->outputs)    {
+             d[i] = (t[i] - o[i]) * o[i] * (1.0 - o[i]);
+         }
+    
+}
+
+           
+
+/* Rachel and Bill are editing this function*/
 void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
     /* To begin with, we must run the network forward. */
-    genann_run(ann, inputs);
-
+    genann  *d_genann;
+    cudaMalloc((void **)&d_genann, sizeof(genann));
+    cudaMemcpy(d_genann, ann, sizeof(genann), cudaMemcpyHostToDevice);
+    
+    genann_run(d_genann, inputs);
+    
     int h, j, k;
-
+    
     /* First set the output layer deltas. */
-    {
-        double const *o = ann->output + ann->inputs + ann->hidden * ann->hidden_layers; /* First output. */
-        double *d = ann->delta + ann->hidden * ann->hidden_layers; /* First delta. */
-        double const *t = desired_outputs; /* First desired output. */
-
-
-        /* Set output layer deltas. */
-        if (ann->activation_output == genann_act_linear) {
-            for (j = 0; j < ann->outputs; ++j) {
-                *d++ = *t++ - *o++;
-            }
-        } else {
-            for (j = 0; j < ann->outputs; ++j) {
-                *d++ = (*t - *o) * *o * (1.0 - *o);
-                ++o; ++t;
-            }
-        }
-    }
+    calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann);
 
 
     /* Set hidden layer deltas, start on last layer and work backwards. */
