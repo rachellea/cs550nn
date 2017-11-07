@@ -227,7 +227,45 @@ __global__ void calculate_output_layer_deltas(genann *d_genann, double const *de
     
 }
 
-           
+
+/* Kernel for calculating hidden layer deltas*/
+__global__ void calculate_hidden_layer_deltas(genann *d_genann) {
+    for (h = d_genann->hidden_layers - 1; h >= 0; --h) {
+
+        /* Find first output and delta in this layer. */
+        double const *o = d_genann->output + d_genann->inputs + (h * d_genann->hidden);
+        double *d = d_genann->delta + (h * d_genann->hidden);
+        
+        __syncthreads()
+        
+        /* Find first delta in following layer (which may be hidden or output). */
+        double const * const dd = d_genann->delta + ((h+1) * d_genann->hidden);
+        
+        __syncthreads()
+        
+        /* Find first weight in following layer (which may be hidden or output). */
+        double const * const ww = d_genann->weight + ((d_genann->inputs+1) * d_genann->hidden) + ((d_genann->hidden+1) * d_genann->hidden * (h));
+        
+        for (j = 0; j < d_genann->hidden; ++j) {
+
+            double delta = 0;
+
+            for (k = 0; k < (h == d_genann->hidden_layers-1 ? d_genann->outputs : d_genann->hidden); ++k) {
+                const double forward_delta = dd[k];
+                const int windex = k * (d_genann->hidden + 1) + (j + 1);
+                const double forward_weight = ww[windex];
+                delta += forward_delta * forward_weight;
+            }
+
+            *d = *o * (1.0-*o) * delta;
+            ++d; ++o;
+        }
+    }
+}
+
+
+
+
 
 /* Rachel and Bill are editing this function*/
 void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
@@ -246,33 +284,8 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
 
     /* Set hidden layer deltas, start on last layer and work backwards. */
     /* Note that loop is skipped in the case of hidden_layers == 0. */
-    for (h = ann->hidden_layers - 1; h >= 0; --h) {
 
-        /* Find first output and delta in this layer. */
-        double const *o = ann->output + ann->inputs + (h * ann->hidden);
-        double *d = ann->delta + (h * ann->hidden);
-
-        /* Find first delta in following layer (which may be hidden or output). */
-        double const * const dd = ann->delta + ((h+1) * ann->hidden);
-
-        /* Find first weight in following layer (which may be hidden or output). */
-        double const * const ww = ann->weight + ((ann->inputs+1) * ann->hidden) + ((ann->hidden+1) * ann->hidden * (h));
-
-        for (j = 0; j < ann->hidden; ++j) {
-
-            double delta = 0;
-
-            for (k = 0; k < (h == ann->hidden_layers-1 ? ann->outputs : ann->hidden); ++k) {
-                const double forward_delta = dd[k];
-                const int windex = k * (ann->hidden + 1) + (j + 1);
-                const double forward_weight = ww[windex];
-                delta += forward_delta * forward_weight;
-            }
-
-            *d = *o * (1.0-*o) * delta;
-            ++d; ++o;
-        }
-    }
+    /*  TO DO INSERT CALL TO KERNEL FOR SETTING HIDDEN LAYER DELTAS*/
 
 
     /* Train the outputs. */
