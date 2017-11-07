@@ -215,7 +215,7 @@ double const *genann_run(genann const *ann, double const *inputs) {
 
 
 /* Kernel for calculating output layer deltas*/
-__global__ void calculate_output_layer_deltas(genann *d_genann) {
+__global__ void calculate_output_layer_deltas(genann *d_genann, double const *desired_outputs) {
         double const *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
         double *d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers; /* First delta. */
         double const *t = desired_outputs; /* First desired output. */
@@ -241,7 +241,7 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
     int h, j, k;
     
     /* First set the output layer deltas. */
-    calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann);
+    calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann, desired_outputs);
 
 
     /* Set hidden layer deltas, start on last layer and work backwards. */
