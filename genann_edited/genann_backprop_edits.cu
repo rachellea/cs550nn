@@ -135,6 +135,20 @@ genann *genann_read(FILE *in) {
 	return ann;
 }
 
+/* calculate genann pointers */
+void set_genann_pointers(genann *ret) {
+	/* Set pointers. */
+	ret->weight = (double*)((char*)ret + sizeof(genann));
+	ret->output = ret->weight + ret->total_weights;
+	ret->delta = ret->output + ret->total_neurons;
+}
+
+__global__ void set_genann_pointers_device(genann *d_ret) {
+	/* Set pointers. */
+	d_ret->weight = (double*)((char*)d_ret + sizeof(genann));
+	d_ret->output = d_ret->weight + d_ret->total_weights;
+	d_ret->delta = d_ret->output + d_ret->total_neurons;
+}
 
 genann *genann_copy(genann const *ann) {
 	const int size = sizeof(genann) + sizeof(double) * (ann->total_weights + ann->total_neurons + (ann->total_neurons - ann->inputs));
@@ -142,15 +156,23 @@ genann *genann_copy(genann const *ann) {
 	if (!ret) return 0;
 
 	memcpy(ret, ann, size);
-
-	/* Set pointers. */
-	ret->weight = (double*)((char*)ret + sizeof(genann));
-	ret->output = ret->weight + ret->total_weights;
-	ret->delta = ret->output + ret->total_neurons;
-
+	set_genann_pointers(ret);
 	return ret;
 }
 
+/* copy a genann struct to GPU using CUDA APIs 
+ * also recalculate the pointer locations so that they point to device memory 
+ */
+genann *genann_device_copy(genann const *ann) {
+	const int size = sizeof(genann) + sizeof(double) * (ann->total_weights + ann->total_neurons + (ann->total_neurons - ann->inputs));
+	genann *ret;
+	cudaMalloc((void **)&ret, size);
+	if (!ret) return 0;
+
+	cudaMemcpy(ret, ann, size, cudaMemcpyHostToDevice);
+	set_genann_pointers_device<<<1, 1>>>(ret);
+	return ret;
+}
 
 void genann_randomize(genann *ann) {
 	int i;
@@ -216,10 +238,10 @@ double const *genann_run(genann const *ann, double const *inputs) {
 
 
 /* Kernel for calculating output layer deltas*/
-__global__ void calculate_output_layer_deltas(genann *d_genann, double const *desired_outputs) {
+__global__ void calculate_output_layer_deltas(genann *d_genann, double const *d_desired_outputs) {
 	double const *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
 	double *d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers; /* First delta. */
-	double const *t = desired_outputs; /* First desired output. */
+	double const *t = d_desired_outputs; /* First desired output. */
 
 	int i = blockIdx.x*blockDim.x + threadIdx.x;
 	if (i < d_genann->outputs) {
@@ -228,51 +250,60 @@ __global__ void calculate_output_layer_deltas(genann *d_genann, double const *de
 
 }
 
+__device__ double *d_o;
+__device__ double *d_d;
+__device__ double *d_dd;
+__device__ double *d_ww;
+
+__global__ void calculate_device_addresses_hidden_delta(genann const *d_genann, int h) {
+	d_o = d_genann->output + d_genann->inputs + (h * d_genann->hidden);
+	d_d = d_genann->delta + (h * d_genann->hidden);
+	d_dd = d_genann->delta + ((h + 1) * d_genann->hidden);
+	d_ww = d_genann->weight + ((d_genann->inputs + 1) * d_genann->hidden) + ((d_genann->hidden + 1) * d_genann->hidden * (h));
+}
+
+__global__ void calc_hidden_delta(genann const *d_genann, int h) {
+	double delta = 0;
+	int j = threadIdx.x;
+
+	for (int k = 0; k < (h == d_genann->hidden_layers - 1 ? d_genann->outputs : d_genann->hidden); ++k) {
+		const double forward_delta = d_dd[k];
+		const int windex = k * (d_genann->hidden + 1) + (j + 1);
+		const double forward_weight = d_ww[windex];
+		delta += forward_delta * forward_weight;
+	}
+
+	d_d[j] = d_o[j] * (1.0 - d_o[j]) * delta;
+	__syncthreads();
+}
+
 
 /* Rachel and Bill are editing this function*/
 void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
 	/* To begin with, we must run the network forward. */
-	genann  *d_genann;
-	cudaMalloc((void **)&d_genann, sizeof(genann));
-	cudaMemcpy(d_genann, ann, sizeof(genann), cudaMemcpyHostToDevice);
+	genann_run(ann, inputs);
 
-	genann_run(d_genann, inputs);
+	/* copy to device to run on GPU */
+	genann *d_genann = genann_device_copy(ann);
+	
+	double *d_desired_outputs;
+	cudaMalloc((void **)&d_desired_outputs, sizeof(double) * ann->outputs);
+	cudaMemcpy(d_desired_outputs, desired_outputs, sizeof(double) * ann->outputs, cudaMemcpyHostToDevice);
 
 	int h, j, k;
 
 	/* First set the output layer deltas. */
-	calculate_output_layer_deltas << <1, ann->outputs >> > (d_genann, desired_outputs);
+	calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann, d_desired_outputs);
 
 
 	/* Set hidden layer deltas, start on last layer and work backwards. */
 	/* Note that loop is skipped in the case of hidden_layers == 0. */
-	for (h = d_genann->hidden_layers - 1; h >= 0; --h) {
+	for (h = ann->hidden_layers - 1; h >= 0; --h) {
 		/* Find first output and delta in this layer. */
-		double const *o = d_genann->output + d_genann->inputs + (h * d_genann->hidden);
-		double *d = d_genann->delta + (h * d_genann->hidden);
+		calculate_device_addresses_hidden_delta << <1, 1 >> > (d_genann, h);
 
-		/* Find first delta in following layer (which may be hidden or output). */
-		double const * const dd = d_genann->delta + ((h + 1) * d_genann->hidden);
-
-		/* Find first weight in following layer (which may be hidden or output). */
-		double const * const ww = d_genann->weight + ((d_genann->inputs + 1) * d_genann->hidden) + ((d_genann->hidden + 1) * d_genann->hidden * (h));
-
-		for (j = 0; j < d_genann->hidden; ++j) {
-
-			double delta = 0;
-
-			for (k = 0; k < (h == d_genann->hidden_layers - 1 ? d_genann->outputs : d_genann->hidden); ++k) {
-				const double forward_delta = dd[k];
-				const int windex = k * (d_genann->hidden + 1) + (j + 1);
-				const double forward_weight = ww[windex];
-				delta += forward_delta * forward_weight;
-			}
-
-			*d = *o * (1.0 - *o) * delta;
-			++d; ++o;
-
-		}
 		/*  CALL TO KERNEL FOR SETTING HIDDEN LAYER DELTAS*/
+		calc_hidden_delta << <1, ann->hidden >> > (d_genann, h);
 	}
 
 	/* Train the outputs. */
@@ -349,8 +380,4 @@ void genann_write(genann const *ann, FILE *out) {
 	for (i = 0; i < ann->total_weights; ++i) {
 		fprintf(out, " %.20e", ann->weight[i]);
 	}
-}
-
-int main() {
-	return 0;
 }
