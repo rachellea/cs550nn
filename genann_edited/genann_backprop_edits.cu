@@ -190,7 +190,7 @@ void genann_free(genann *ann) {
 }
 
 
-double const *genann_run(genann const *ann, double const *inputs) {
+double const *genann_run(genann *ann, double const *inputs) {
 	double const *w = ann->weight;
 	double *o = ann->output + ann->inputs;
 	double const *i = ann->output;
@@ -236,20 +236,6 @@ double const *genann_run(genann const *ann, double const *inputs) {
 	return ret;
 }
 
-
-/* Kernel for calculating output layer deltas*/
-__global__ void calculate_output_layer_deltas(genann *d_genann, double const *d_desired_outputs) {
-	double const *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
-	double *d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers; /* First delta. */
-	double const *t = d_desired_outputs; /* First desired output. */
-
-	int i = blockIdx.x*blockDim.x + threadIdx.x;
-	if (i < d_genann->outputs) {
-		d[i] = (t[i] - o[i]) * o[i] * (1.0 - o[i]);
-	}
-
-}
-
 // first output
 __device__ double *d_o;
 // first delta
@@ -262,6 +248,13 @@ __device__ double *d_i;
 __device__ double *d_w;
 // fisrt weight in the following layer
 __device__ double *d_ww;
+__device__ double *d_t;
+
+__global__ void calculate_device_addresses_output_delta(genann const *d_genann, double *d_desired_outputs) {
+	d_o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
+	d_d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers; /* First delta. */
+	d_t = d_desired_outputs; /* First desired output. */
+}
 
 __global__ void calculate_device_addresses_hidden_delta(genann const *d_genann, int h) {
 	d_o = d_genann->output + d_genann->inputs + (h * d_genann->hidden);
@@ -303,6 +296,12 @@ __global__ void calculate_device_addresses_train_hidden(genann const *d_genann, 
 		: 0);
 }
 
+/* Kernel for calculating output layer deltas*/
+__global__ void calculate_output_layer_deltas(genann *d_genann) {
+	int i = threadIdx.x;
+	d_d[i] = (d_t[i] - d_o[i]) * d_o[i] * (1.0 - d_o[i]);
+}
+
 /* calcualte the deltas of the hidden layer */
 __global__ void calc_hidden_delta(genann const *d_genann, int h) {
 	double delta = 0;
@@ -331,9 +330,6 @@ __global__ void train_output_weights(genann const *d_genann, double learning_rat
 			d_w[n*j + k] += d_d[j] * learning_rate * d_i[k - 1];
 		}
 	}
-	
-	__syncthreads();
-	assert(d_w - d_genann->weight == d_genann->total_weights);
 }
 
 __global__ void train_hidden_weights(genann const *d_genann, int h, double learning_rate) {
@@ -349,9 +345,23 @@ __global__ void train_hidden_weights(genann const *d_genann, int h, double learn
 	}
 }
 
+void copy_back_genann_and_print(genann const* d_genann, genann * ann) {
+	const int size = sizeof(genann) + sizeof(double) * (ann->total_weights + ann->total_neurons + (ann->total_neurons - ann->inputs));
+	cudaMemcpy(ann, d_genann, size, cudaMemcpyDeviceToHost);
+	set_genann_pointers(ann);
+	double *w = ann->weight + (ann->hidden_layers
+		? ((ann->inputs + 1) * ann->hidden + (ann->hidden + 1) * ann->hidden * (ann->hidden_layers - 1))
+		: (0));
+	int n = (ann->hidden_layers ? ann->hidden : ann->inputs) + 1;
+	double *d = ann->delta + ann->hidden * ann->hidden_layers; /* First delta. */
+	for (int i = 0; i < ann->outputs; i++) {
+		printf("delta: %lf\n", w[i]);
+	}
+}
+
 
 /* Rachel and Bill are editing this function*/
-void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
+void genann_train(genann *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
 	/* To begin with, we must run the network forward. */
 	genann_run(ann, inputs);
 
@@ -365,8 +375,11 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
 	int h;
 
 	/* First set the output layer deltas. */
-	calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann, d_desired_outputs);
+	calculate_device_addresses_output_delta << <1, 1 >> > (d_genann, d_desired_outputs);
 
+	calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann);
+
+	copy_back_genann_and_print(d_genann, ann);
 
 	/* Set hidden layer deltas, start on last layer and work backwards. */
 	/* Note that loop is skipped in the case of hidden_layers == 0. */
@@ -395,6 +408,7 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
 		train_hidden_weights << <1, ann->hidden >> > (d_genann, h, learning_rate);
 	}
 
+	copy_back_genann_and_print(d_genann, ann);
 }
 
 

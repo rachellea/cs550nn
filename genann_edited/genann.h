@@ -88,10 +88,10 @@ genann *genann_copy(genann const *ann);
 void genann_free(genann *ann);
 
 /* Runs the feedforward algorithm to calculate the ann's output. */
-double const *genann_run(genann const *ann, double const *inputs);
+double const *genann_run(genann *ann, double const *inputs);
 
 /* Does a single backprop update. */
-void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate);
+void genann_train(genann *ann, double const *inputs, double const *desired_outputs, double learning_rate);
 
 /* Saves the ann. */
 void genann_write(genann const *ann, FILE *out);

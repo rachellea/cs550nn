@@ -30,7 +30,8 @@ int main(int argc, char *argv[])
     printf("Output for [%1.f, %1.f] is %1.f.\n", input[2][0], input[2][1], *genann_run(ann, input[2]));
     printf("Output for [%1.f, %1.f] is %1.f.\n", input[3][0], input[3][1], *genann_run(ann, input[3]));
 
-	scanf("%c");
+	char c;
+	scanf_s("%c", &c);
     genann_free(ann);
     return 0;
 }
