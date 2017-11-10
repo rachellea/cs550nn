@@ -10,15 +10,17 @@
 
 const char *iris_data = "example/iris.data";
 
-double *input, *class;
+double *input, *cls;
 int samples;
 const char *class_names[] = {"Iris-setosa", "Iris-versicolor", "Iris-virginica"};
 
 void load_data() {
     /* Load the iris data-set. */
-    FILE *in = fopen("example/iris.data", "r");
+    FILE *in = fopen("iris.data", "r");
     if (!in) {
         printf("Could not open file: %s\n", iris_data);
+		char c;
+		scanf("%c", &c);
         exit(1);
     }
 
@@ -32,14 +34,14 @@ void load_data() {
     printf("Loading %d data points from %s\n", samples, iris_data);
 
     /* Allocate memory for input and output data. */
-    input = malloc(sizeof(double) * samples * 4);
-    class = malloc(sizeof(double) * samples * 3);
+    input = (double*)malloc(sizeof(double) * samples * 4);
+    cls = (double*)malloc(sizeof(double) * samples * 3);
 
     /* Read the file into our arrays. */
     int i, j;
     for (i = 0; i < samples; ++i) {
         double *p = input + i * 4;
-        double *c = class + i * 3;
+        double *c = cls + i * 3;
         c[0] = c[1] = c[2] = 0.0;
 
         fgets(line, 1024, in);
@@ -87,7 +89,7 @@ int main(int argc, char *argv[])
     printf("Training for %d loops over data.\n", loops);
     for (i = 0; i < loops; ++i) {
         for (j = 0; j < samples; ++j) {
-            genann_train(ann, input + j*4, class + j*3, .01);
+            genann_train(ann, input + j*4, cls + j*3, .01);
         }
         /* printf("%1.2f ", xor_score(ann)); */
     }
@@ -95,10 +97,10 @@ int main(int argc, char *argv[])
     int correct = 0;
     for (j = 0; j < samples; ++j) {
         const double *guess = genann_run(ann, input + j*4);
-        if (class[j*3+0] == 1.0) {if (guess[0] > guess[1] && guess[0] > guess[2]) ++correct;}
-        else if (class[j*3+1] == 1.0) {if (guess[1] > guess[0] && guess[1] > guess[2]) ++correct;}
-        else if (class[j*3+2] == 1.0) {if (guess[2] > guess[0] && guess[2] > guess[1]) ++correct;}
-        else {printf("Logic error.\n"); exit(1);}
+        if (cls[j*3+0] == 1.0) {if (guess[0] > guess[1] && guess[0] > guess[2]) ++correct;}
+        else if (cls[j*3+1] == 1.0) {if (guess[1] > guess[0] && guess[1] > guess[2]) ++correct;}
+        else if (cls[j*3+2] == 1.0) {if (guess[2] > guess[0] && guess[2] > guess[1]) ++correct;}
+        else {printf("Logic error.\n"); }
     }
 
     printf("%d/%d correct (%0.1f%%).\n", correct, samples, (double)correct / samples * 100.0);
@@ -106,6 +108,8 @@ int main(int argc, char *argv[])
 
 
     genann_free(ann);
+	char c;
+	scanf_s("%c", &c);
 
     return 0;
 }

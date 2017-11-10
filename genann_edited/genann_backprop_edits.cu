@@ -354,9 +354,9 @@ void copy_back_genann_and_print(genann const* d_genann, genann * ann) {
 		: (0));
 	int n = (ann->hidden_layers ? ann->hidden : ann->inputs) + 1;
 	double *d = ann->delta + ann->hidden * ann->hidden_layers; /* First delta. */
-	for (int i = 0; i < ann->outputs; i++) {
+	/*for (int i = 0; i < ann->outputs; i++) {
 		printf("delta: %lf\n", w[i]);
-	}
+	}*/
 }
 
 
