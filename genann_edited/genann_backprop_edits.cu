@@ -250,9 +250,17 @@ __global__ void calculate_output_layer_deltas(genann *d_genann, double const *d_
 
 }
 
+// first output
 __device__ double *d_o;
+// first delta
 __device__ double *d_d;
+// first delta of the next layer
 __device__ double *d_dd;
+// first output in the previous layer
+__device__ double *d_i;
+// first weight to first output delta
+__device__ double *d_w;
+// fisrt weight in the following layer
 __device__ double *d_ww;
 
 __global__ void calculate_device_addresses_hidden_delta(genann const *d_genann, int h) {
@@ -262,6 +270,40 @@ __global__ void calculate_device_addresses_hidden_delta(genann const *d_genann, 
 	d_ww = d_genann->weight + ((d_genann->inputs + 1) * d_genann->hidden) + ((d_genann->hidden + 1) * d_genann->hidden * (h));
 }
 
+__global__ void calculate_device_addresses_train_outputs(genann const *d_genann) {
+	/* Find first output delta. */
+	d_d = d_genann->delta + d_genann->hidden * d_genann->hidden_layers;
+
+	/* Find first weight to first output delta. */
+	d_w = d_genann->weight + (d_genann->hidden_layers
+		? ((d_genann->inputs + 1) * d_genann->hidden + (d_genann->hidden + 1) * d_genann->hidden * (d_genann->hidden_layers - 1))
+		: (0));
+
+	/* Find first output in previous layer. */
+	d_i = d_genann->output + (d_genann->hidden_layers
+		? (d_genann->inputs + (d_genann->hidden) * (d_genann->hidden_layers - 1))
+		: 0);
+}
+
+/* calculate the device addresses for training hidden layer
+ * h is the index of the hidden layer
+ */
+__global__ void calculate_device_addresses_train_hidden(genann const *d_genann, int h) {
+	/* Find first delta in this layer. */
+	d_d = d_genann->delta + (h * d_genann->hidden);
+
+	/* Find first input to this layer. */
+	d_i = d_genann->output + (h
+		? (d_genann->inputs + d_genann->hidden * (h - 1))
+		: 0);
+
+	/* Find first weight to this layer. */
+	d_w = d_genann->weight + (h
+		? ((d_genann->inputs + 1) * d_genann->hidden + (d_genann->hidden + 1) * (d_genann->hidden) * (h - 1))
+		: 0);
+}
+
+/* calcualte the deltas of the hidden layer */
 __global__ void calc_hidden_delta(genann const *d_genann, int h) {
 	double delta = 0;
 	int j = threadIdx.x;
@@ -277,6 +319,36 @@ __global__ void calc_hidden_delta(genann const *d_genann, int h) {
 	__syncthreads();
 }
 
+/* train for the weights of the output layer */
+__global__ void train_output_weights(genann const *d_genann, double learning_rate) {
+	int j = threadIdx.x;
+	int n = (d_genann->hidden_layers ? d_genann->hidden : d_genann->inputs) + 1;
+	for (int k = 0; k < n; ++k) {
+		if (k == 0) {
+			d_w[n*j+k] += d_d[j] * learning_rate * -1.0;
+		}
+		else {
+			d_w[n*j + k] += d_d[j] * learning_rate * d_i[k - 1];
+		}
+	}
+	
+	__syncthreads();
+	assert(d_w - d_genann->weight == d_genann->total_weights);
+}
+
+__global__ void train_hidden_weights(genann const *d_genann, int h, double learning_rate) {
+	int j = threadIdx.x;
+	int n = (h == 0 ? d_genann->inputs : d_genann->hidden) + 1;
+	for (int k = 0; k < n; ++k) {
+		if (k == 0) {
+			d_w[n*j+k] += d_d[j] * learning_rate * -1.0;
+		}
+		else {
+			d_w[n*j + k] += d_d[j] * learning_rate * d_i[k - 1];
+		}
+	}
+}
+
 
 /* Rachel and Bill are editing this function*/
 void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
@@ -290,7 +362,7 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
 	cudaMalloc((void **)&d_desired_outputs, sizeof(double) * ann->outputs);
 	cudaMemcpy(d_desired_outputs, desired_outputs, sizeof(double) * ann->outputs, cudaMemcpyHostToDevice);
 
-	int h, j, k;
+	int h;
 
 	/* First set the output layer deltas. */
 	calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann, d_desired_outputs);
@@ -308,66 +380,19 @@ void genann_train(genann const *ann, double const *inputs, double const *desired
 
 	/* Train the outputs. */
 	{
-		/* Find first output delta. */
-		double const *d = ann->delta + ann->hidden * ann->hidden_layers; /* First output delta. */
-
-		/* Find first weight to first output delta. */
-		double *w = ann->weight + (ann->hidden_layers
-			? ((ann->inputs + 1) * ann->hidden + (ann->hidden + 1) * ann->hidden * (ann->hidden_layers - 1))
-			: (0));
-
-		/* Find first output in previous layer. */
-		double const * const i = ann->output + (ann->hidden_layers
-			? (ann->inputs + (ann->hidden) * (ann->hidden_layers - 1))
-			: 0);
-
+		/* calculate the device addresses */
+		calculate_device_addresses_train_outputs << <1, 1 >> > (d_genann);
+		
 		/* Set output layer weights. */
-		for (j = 0; j < ann->outputs; ++j) {
-			for (k = 0; k < (ann->hidden_layers ? ann->hidden : ann->inputs) + 1; ++k) {
-				if (k == 0) {
-					*w++ += *d * learning_rate * -1.0;
-				}
-				else {
-					*w++ += *d * learning_rate * i[k - 1];
-				}
-			}
-
-			++d;
-		}
-
-		assert(w - ann->weight == ann->total_weights);
+		train_output_weights << <1, ann->outputs >> > (d_genann, learning_rate);
 	}
 
 
 	/* Train the hidden layers. */
 	for (h = ann->hidden_layers - 1; h >= 0; --h) {
-
-		/* Find first delta in this layer. */
-		double const *d = ann->delta + (h * ann->hidden);
-
-		/* Find first input to this layer. */
-		double const *i = ann->output + (h
-			? (ann->inputs + ann->hidden * (h - 1))
-			: 0);
-
-		/* Find first weight to this layer. */
-		double *w = ann->weight + (h
-			? ((ann->inputs + 1) * ann->hidden + (ann->hidden + 1) * (ann->hidden) * (h - 1))
-			: 0);
-
-
-		for (j = 0; j < ann->hidden; ++j) {
-			for (k = 0; k < (h == 0 ? ann->inputs : ann->hidden) + 1; ++k) {
-				if (k == 0) {
-					*w++ += *d * learning_rate * -1.0;
-				}
-				else {
-					*w++ += *d * learning_rate * i[k - 1];
-				}
-			}
-			++d;
-		}
-
+		calculate_device_addresses_train_hidden << <1, 1 >> > (d_genann, h);
+		
+		train_hidden_weights << <1, ann->hidden >> > (d_genann, h, learning_rate);
 	}
 
 }
