@@ -34,6 +34,13 @@
 
 #define LOOKUP_SIZE 4096
 
+__device__ double genann_act_sigmoid_device(double a) {
+	if (a < -45.0) return 0;
+	if (a > 45.0) return 1;
+	return 1.0 / (1 + exp(-a));
+}
+
+
 double genann_act_sigmoid(double a) {
 	if (a < -45.0) return 0;
 	if (a > 45.0) return 1;
@@ -174,6 +181,26 @@ genann *genann_device_copy(genann const *ann) {
 	return ret;
 }
 
+void copy_back_genann_and_print(genann const* d_genann, genann * ann) {
+	const int size = sizeof(genann) + sizeof(double) * (ann->total_weights + ann->total_neurons + (ann->total_neurons - ann->inputs));
+	cudaMemcpy(ann, d_genann, size, cudaMemcpyDeviceToHost);
+	set_genann_pointers(ann);
+	double *w = ann->weight + (ann->hidden_layers
+		? ((ann->inputs + 1) * ann->hidden + (ann->hidden + 1) * ann->hidden * (ann->hidden_layers - 1))
+		: (0));
+	int n = (ann->hidden_layers ? ann->hidden : ann->inputs) + 1;
+	double *d = ann->delta + ann->hidden * ann->hidden_layers; /* First delta. */
+	/*
+	for (int i = 0; i < ann->outputs; i++) {
+		printf("weight: %lf\n", w[i]);
+	}
+	double *o = ann->output + ann->inputs;
+	for (int i = 0; i < ann->hidden; i++) {
+		printf("hidden output: %lf\n", o[i]);
+	}
+	printf("output : %lf\n", o[ann->hidden]);*/
+}
+
 void genann_randomize(genann *ann) {
 	int i;
 	for (i = 0; i < ann->total_weights; ++i) {
@@ -189,85 +216,8 @@ void genann_free(genann *ann) {
 	free(ann);
 }
 
+// result of forward run
 __device__ double* d_ret;
-
-__global__ void genann_run_hidden(genann const *d_genann, double const *d_inputs) {
-	double const *w = d_genann->weight;
-	double *o = d_genann->output + d_genann->inputs;
-	double const *i = d_genann->output;
-
-	/* Copy the inputs to the scratch area, where we also store each neuron's
-	* output, for consistency. This way the first layer isn't a special case. */
-	memcpy(d_genann->output, d_inputs, sizeof(double) * d_genann->inputs);
-
-	int h, k;
-	int j = threadIdx.x;
-
-	const genann_actfun act = d_genann->activation_hidden;
-
-	int n = d_genann->hidden;
-
-	/* Figure hidden layers, if any. */
-	for (h = 0; h < d_genann->hidden_layers; ++h) {
-		double sum = w[h * n + j] * -1.0;
-		for (k = 0; k < (h == 0 ? d_genann->inputs : d_genann->hidden); ++k) {
-			sum += w[h * n + j] * i[k];
-		}
-		o[h * n + j] = act(sum);
-		__syncthreads();
-		i += (h == 0 ? d_genann->inputs : d_genann->hidden);
-	}
-}   
-
-/* run for the output layer */
-__global__ void genann_run_output(genann const *d_genann) {
-	double const *w = d_genann->weight + (d_genann->inputs + (d_genann->hidden_layers - 1) * d_genann->hidden) * d_genann->hidden;
-	double *i = d_genann->output + d_genann->inputs + (d_genann->hidden_layers - 1) * d_genann->hidden;
-	double *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers;
-
-	const genann_actfun acto = d_genann->activation_output;
-
-	int j = threadIdx.x;
-	int n = d_genann->hidden_layers ? d_genann->hidden : d_genann->inputs;
-
-	/* Figure output layer. */
-	double sum = w[j * (n+1)] * -1.0;
-	for (int k = 0; k < n; ++k) {
-		sum += w[j * (n+1) + k + 1] * i[k];
-	}
-	o[j] = acto(sum);
-}
-
-__global__ void calculate_address_result(genann const* d_genann) {
-	double *o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers;
-	d_ret = o + d_genann->outputs;
-}
-
-genann* genann_run_internal(genann *ann, double const *inputs) {
-	/* copy to device to run on GPU */
-	genann *d_genann = genann_device_copy(ann);
-
-	/* copy inputs to device */
-	double *d_inputs;
-	cudaMalloc((void **)&d_inputs, sizeof(double) * ann->inputs);
-	cudaMemcpy(d_inputs, inputs, sizeof(double) * ann->inputs, cudaMemcpyHostToDevice);
-
-	/* To begin with, we must run the network forward. */
-	genann_run_hidden << <1, ann->hidden >> > (d_genann, d_inputs);
-	genann_run_output << <1, ann->outputs >> > (d_genann);
-	calculate_address_result << <1, 1 >> > (d_genann);
-
-	return d_genann;
-}
-
-double const *genann_run(genann *ann, double const *inputs) {
-	genann_run_internal(ann, inputs);
-
-	double *result = (double*)malloc(sizeof(double));
-	cudaMemcpy(result, d_ret, sizeof(double), cudaMemcpyDeviceToHost);
-	return result;
-}
-
 // first output
 __device__ double *d_o;
 // first delta
@@ -281,6 +231,80 @@ __device__ double *d_w;
 // fisrt weight in the following layer
 __device__ double *d_ww;
 __device__ double *d_t;
+
+__global__ void calculate_address_hidden_forward(genann const *d_genann, int h) {
+	d_w = d_genann->weight;
+	d_o = d_genann->output + d_genann->inputs;
+	d_i = d_genann->output;
+
+	for (int i = 1; i <= h; i++) {
+		d_w += d_genann->hidden * (i == 1 ? d_genann->inputs+1 : d_genann->hidden+1);
+	}
+	d_o += h * d_genann->hidden;
+	for (int i = 1; i <= h; i++) {
+		d_i += i == 1 ? d_genann->inputs : d_genann->hidden;
+	}
+}
+
+__global__ void genann_run_hidden(genann const *d_genann, int h) {
+	//const genann_actfun act = d_genann->activation_hidden;
+
+	int j = threadIdx.x;
+	int n = (h == 0 ? d_genann->inputs : d_genann->hidden);
+	double sum = d_w[(n+1)*j] * -1.0;
+
+	for (int k = 0; k < n; ++k) {
+		sum += d_w[(n+1)*j+k+1] * d_i[k];
+	}
+	d_o[j] = genann_act_sigmoid_device(sum);
+}   
+
+/* run for the output layer */
+__global__ void genann_run_output(genann const *d_genann) {
+	//const genann_actfun acto = d_genann->activation_output;
+
+	int j = threadIdx.x;
+	int n = d_genann->hidden_layers ? d_genann->hidden : d_genann->inputs;
+
+	/* Figure output layer. */
+	double sum = d_w[j * (n+1)] * -1.0;
+	for (int k = 0; k < n; ++k) {
+		sum += d_w[j * (n+1) + k + 1] * d_i[k];
+	}
+	d_o[j] = genann_act_sigmoid_device(sum);
+}
+
+__global__ void calculate_address_result(genann const* d_genann) {
+	d_ret = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers;
+}
+
+genann* genann_run_internal(genann *ann, double const *inputs) {
+	/* Copy the inputs to the scratch area, where we also store each neuron's
+	* output, for consistency. This way the first layer isn't a special case. */
+	memcpy(ann->output, inputs, sizeof(double) * ann->inputs);
+
+	/* copy to device to run on GPU */
+	genann *d_genann = genann_device_copy(ann);
+
+	int h;
+
+	/* Figure hidden layers, if any. */
+	for (h = 0; h < ann->hidden_layers; ++h) {
+		calculate_address_hidden_forward << <1, 1 >> > (d_genann, h);
+		genann_run_hidden << <1, ann->hidden >> > (d_genann, h);
+	}
+
+	calculate_address_hidden_forward << <1, 1 >> > (d_genann, ann->hidden_layers);
+	genann_run_output << <1, ann->outputs >> > (d_genann);
+	copy_back_genann_and_print(d_genann, ann);
+
+	return d_genann;
+}
+
+double const *genann_run(genann *ann, double const *inputs) {
+	genann *d_genann = genann_run_internal(ann, inputs);
+	return ann->output + ann->inputs + ann->hidden * ann->hidden_layers;
+}
 
 __global__ void calculate_device_addresses_output_delta(genann const *d_genann, double *d_desired_outputs) {
 	d_o = d_genann->output + d_genann->inputs + d_genann->hidden * d_genann->hidden_layers; /* First output. */
@@ -377,25 +401,11 @@ __global__ void train_hidden_weights(genann const *d_genann, int h, double learn
 	}
 }
 
-void copy_back_genann_and_print(genann const* d_genann, genann * ann) {
-	const int size = sizeof(genann) + sizeof(double) * (ann->total_weights + ann->total_neurons + (ann->total_neurons - ann->inputs));
-	cudaMemcpy(ann, d_genann, size, cudaMemcpyDeviceToHost);
-	set_genann_pointers(ann);
-	double *w = ann->weight + (ann->hidden_layers
-		? ((ann->inputs + 1) * ann->hidden + (ann->hidden + 1) * ann->hidden * (ann->hidden_layers - 1))
-		: (0));
-	int n = (ann->hidden_layers ? ann->hidden : ann->inputs) + 1;
-	double *d = ann->delta + ann->hidden * ann->hidden_layers; /* First delta. */
-	for (int i = 0; i < ann->outputs; i++) {
-		printf("weight: %lf\n", w[i]);
-	}
-}
-
 
 /* Rachel and Bill are editing this function*/
 void genann_train(genann *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
 	genann *d_genann = genann_run_internal(ann, inputs);
-	
+
 	double *d_desired_outputs;
 	cudaMalloc((void **)&d_desired_outputs, sizeof(double) * ann->outputs);
 	cudaMemcpy(d_desired_outputs, desired_outputs, sizeof(double) * ann->outputs, cudaMemcpyHostToDevice);
@@ -406,8 +416,6 @@ void genann_train(genann *ann, double const *inputs, double const *desired_outpu
 	calculate_device_addresses_output_delta << <1, 1 >> > (d_genann, d_desired_outputs);
 
 	calculate_output_layer_deltas<<<1, ann->outputs>>>(d_genann);
-
-	copy_back_genann_and_print(d_genann, ann);
 
 	/* Set hidden layer deltas, start on last layer and work backwards. */
 	/* Note that loop is skipped in the case of hidden_layers == 0. */
