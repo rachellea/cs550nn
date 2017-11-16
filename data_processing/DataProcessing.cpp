@@ -135,6 +135,7 @@ int loadMNISTData() {
                                    imageBytes.begin()+(i*IMAGE_SIZE)+IMAGE_OFFSET+IMAGE_SIZE);
 
         // Do something with the data...
+        // cout << vImageData.size() << endl;
         labels.push_back(label);
         images.push_back(vImageData);
     }
