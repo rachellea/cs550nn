@@ -59,6 +59,9 @@ typedef struct genann {
     /* Total number of neurons + inputs and size of output buffer. */
     int total_neurons;
 
+	/* Copy of the struct on GPU */
+	genann* d_ann;
+
     /* All weights (total_weights long). */
     double *weight;
 
@@ -78,11 +81,11 @@ genann *genann_init(int inputs, int hidden_layers, int hidden, int outputs);
 /* Creates ANN from file saved with genann_write. */
 genann *genann_read(FILE *in);
 
-/* Sets weights randomly. Called by init. */
-void genann_randomize(genann *ann);
+/* Copy genann to device */
+genann *genann_device_copy(genann const *ann);
 
-/* Returns a new copy of ann. */
-genann *genann_copy(genann const *ann);
+/* Returns a new copy of ann on CPU memory. */
+genann *genann_cpu(genann const *ann);
 
 /* Frees the memory used by an ann. */
 void genann_free(genann *ann);
