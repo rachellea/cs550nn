@@ -268,6 +268,9 @@ genann* genann_run_internal(genann *ann, double const *inputs) {
 	/* Copy the inputs to the scratch area, where we also store each neuron's
 	* output, for consistency. This way the first layer isn't a special case. */
 	memcpy(ann->output, inputs, sizeof(double) * ann->inputs);
+	for (int i = 0; i < ann->inputs; i++) {
+		printf("%lf\n", inputs[i]);
+	}
 
 	/* copy to device to run on GPU */
 	genann *d_genann = genann_device_copy(ann);
@@ -391,7 +394,7 @@ __global__ void train_hidden_weights(genann const *d_genann, int h, double learn
 
 
 /* impl of the external API genann_train */
-void genann_train(genann *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
+void genann_train(genann *ann, double *inputs, double *desired_outputs, double learning_rate) {
 	genann *d_genann = genann_run_internal(ann, inputs);
 
 	double *d_desired_outputs;
