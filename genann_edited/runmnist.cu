@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 {
 	printf("GENANN example 1.\n");
 	printf("Train a mnist.\n");
+	printf("%d\n", sizeof(mnist_data_ann));
 
 	char* labelFileName = "t10k-labels.idx1-ubyte";
 	char* imageFileName = "t10k-images.idx3-ubyte";
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
 		printf("An error occured: %d\n", ret);
 	}
 
-	data_ann = (mnist_data_ann*)malloc(sizeof(double) * (28 * 28 + 1) * cnt);
+	data_ann = (mnist_data_ann*)malloc(sizeof(mnist_data_ann) * cnt);
 	copy_to_double(data_ann, data_raw, cnt);
 
 	int i;
@@ -42,20 +43,21 @@ int main(int argc, char *argv[])
 	/* New network with 2 inputs,
 	* 1 hidden layer of 2 neurons,
 	* and 1 output. */
-	genann *ann = genann_init(28*28, 2, 28*28, 1);
+	genann *ann = genann_init(28*28, 1, 15, 1);
+	printf("%d\n", cnt);
 
 	/* Train on the four labeled data points many times. */
-	for (i = 0; i < 300; ++i) {
+	for (i = 0; i < 1; ++i) {
+		printf("big i %d\n", i);
 		for (int j = 0; j < cnt; j++) {
-			genann_train(ann, data_ann[j].data, &data_ann[j].label, 0.9);
+			printf("%d\n", j);
+			genann_train(ann, data_ann[j].data, &data_ann[j].label, 3);
 		}
 	}
 
-	/* Run the network and see what it predicts. */
-	printf("%lf, %lf\n", *genann_run(ann, data_ann[0].data), data_ann[0].label);
-	printf("%lf, %lf\n", *genann_run(ann, data_ann[1].data), data_ann[1].label);
-	printf("%lf, %lf\n", *genann_run(ann, data_ann[2].data), data_ann[2].label);
-	printf("%lf, %lf\n", *genann_run(ann, data_ann[3].data), data_ann[3].label);
+	for (int j = 0; j < cnt; j++) {
+		printf("%lf, %lf\n", *genann_run(ann, data_ann[j].data), data_ann[j].label);
+	}
 
 	char c;
 	scanf_s("%c", &c);

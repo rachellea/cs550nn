@@ -268,9 +268,6 @@ genann* genann_run_internal(genann *ann, double const *inputs) {
 	/* Copy the inputs to the scratch area, where we also store each neuron's
 	* output, for consistency. This way the first layer isn't a special case. */
 	memcpy(ann->output, inputs, sizeof(double) * ann->inputs);
-	for (int i = 0; i < ann->inputs; i++) {
-		printf("%lf\n", inputs[i]);
-	}
 
 	/* copy to device to run on GPU */
 	genann *d_genann = genann_device_copy(ann);
