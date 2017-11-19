@@ -43,20 +43,29 @@ int main(int argc, char *argv[])
 	/* New network with 2 inputs,
 	* 1 hidden layer of 2 neurons,
 	* and 1 output. */
-	genann *ann = genann_init(28*28, 1, 15, 1);
+	genann *ann = genann_init(28*28, 1, 15, 10);
 	printf("%d\n", cnt);
+	double * arr = (double*)malloc(sizeof(double) * 10);
 
 	/* Train on the four labeled data points many times. */
 	for (i = 0; i < 1; ++i) {
 		printf("big i %d\n", i);
 		for (int j = 0; j < cnt; j++) {
+			memset(arr, 0, sizeof(double) * 10);
+			arr[(int)data_ann[j].label] = 1;
 			printf("%d\n", j);
-			genann_train(ann, data_ann[j].data, &data_ann[j].label, 3);
+			genann_train(ann, data_ann[j].data, arr, 3);
 		}
 	}
 
 	for (int j = 0; j < cnt; j++) {
-		printf("%lf, %lf\n", *genann_run(ann, data_ann[j].data), data_ann[j].label);
+		printf("label: %1.f\n", data_ann[j].label);
+		printf("vector: ");
+		const double * out = genann_run(ann, data_ann[j].data);
+		for (int i = 0; i < 10; i++) {
+			printf("%lf ", out[i]);
+		}
+		printf("\n");
 	}
 
 	char c;
