@@ -1,0 +1,27 @@
+#ifndef CONVOLUTION_H
+#define CONVOLUTION_H
+
+#include <helper_cuda.h>
+#include <assert.h>
+
+#define kBlockDimX 16
+#define kBlockDimY 16
+
+#define CACHE_W 16
+#define CACHE_H 16
+#define KERNAL_RAD 8
+
+
+// Naive approach
+extern "C" void convolutionFullNaiveSepKernel(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH, int kernelR);
+extern "C" void convolutionFullNaive(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH, int kernelR);
+extern "C" void convolutionSeparableColumnNaive(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR);
+extern "C" void convolutionSeparableRowNaive(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR);
+
+
+// Shared approach
+extern "C" void convolutionSeparableColumnShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR);
+extern "C" void convolutionSeparableRowShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR);
+
+#endif
+
