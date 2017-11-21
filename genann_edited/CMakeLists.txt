@@ -2,7 +2,7 @@ project("nn_550")
 cmake_minimum_required(VERSION 2.8)
 
 if( NOT CMAKE_BUILD_TYPE )
-   set( CMAKE_BUILD_TYPE Reselase )
+   set( CMAKE_BUILD_TYPE Release )
 endif()
 
 add_definitions(-std=c++11)
@@ -23,8 +23,8 @@ ${PROJECT_SOURCE_DIR}/mnist.cuh
 
 # outside libraries
 ${PROJECT_SOURCE_DIR}/genann.h
-${PROJECT_SOURCE_DIR}/genann.c
-#${PROJECT_SOURCE_DIR}/genann_backprop_edits.cu 
+#${PROJECT_SOURCE_DIR}/genann.c
+${PROJECT_SOURCE_DIR}/genann_backprop_edits.cu
 )
 
 #link_directories(

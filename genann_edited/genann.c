@@ -167,7 +167,7 @@ void genann_free(genann *ann) {
 }
 
 
-double const *genann_run(genann const *ann, double const *inputs) {
+double const *genann_run(genann *ann, double const *inputs) {
     double const *w = ann->weight;
     double *o = ann->output + ann->inputs;
     double const *i = ann->output;
@@ -214,7 +214,7 @@ double const *genann_run(genann const *ann, double const *inputs) {
 }
 
 
-void genann_train(genann const *ann, double const *inputs, double const *desired_outputs, double learning_rate) {
+void genann_train(genann *ann, double *inputs, double *desired_outputs, double learning_rate) {
     /* To begin with, we must run the network forward. */
     genann_run(ann, inputs);
 
