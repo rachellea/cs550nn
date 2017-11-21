@@ -43,12 +43,12 @@ int main(int argc, char *argv[])
 	/* New network with 2 inputs,
 	* 1 hidden layer of 2 neurons,
 	* and 1 output. */
-	genann *ann = genann_init(28*28, 1, 100, 10);
+	genann *ann = genann_init(28*28, 3, 128, 10);
 	printf("%d\n", cnt);
 	double * arr = (double*)malloc(sizeof(double) * 10);
 
 	/* Train on the four labeled data points many times. */
-	for (i = 0; i < 1; ++i) {
+	for (i = 0; i < 5; ++i) {
 		printf("big i %d\n", i);
 		for (int j = 0; j < cnt; j++) {
 			memset(arr, 0, sizeof(double) * 10);
@@ -58,15 +58,20 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	int correct = 0;
+
 	for (int j = 0; j < cnt; j++) {
-		printf("label: %1.f\n", data_ann[j].label);
-		printf("vector: ");
 		const double * out = genann_run(ann, data_ann[j].data);
-		for (int i = 0; i < 10; i++) {
-			printf("%lf ", out[i]);
+		int max = 0;
+		for (int i = 1; i < 10; i++) {
+			if (out[i] > out[max]) {
+				max = i;
+			}
 		}
-		printf("\n");
+		if (max == (int)data_ann[j].label) correct++;
 	}
+
+	printf("Correct percentage: %lf\n", 1.0 * correct / cnt * 100);
 
 	char c;
 	scanf_s("%c", &c);
