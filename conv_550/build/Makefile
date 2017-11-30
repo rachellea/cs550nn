@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lesia/courses/Arch/architectureproject/convolution/conv_550
+CMAKE_SOURCE_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build
+CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,6 +123,19 @@ conv_550_demo/fast:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/build
 .PHONY : conv_550_demo/fast
 
+#=============================================================================
+# Target rules for targets named conv_prof_nv
+
+# Build rule for target.
+conv_prof_nv: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 conv_prof_nv
+.PHONY : conv_prof_nv
+
+# fast build rule for target.
+conv_prof_nv/fast:
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/build
+.PHONY : conv_prof_nv/fast
+
 src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 
 .PHONY : src/convolutionSeparable_gold.o
@@ -130,6 +143,7 @@ src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 # target to build an object file
 src/convolutionSeparable_gold.cpp.o:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.o
 .PHONY : src/convolutionSeparable_gold.cpp.o
 
 src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
@@ -139,6 +153,7 @@ src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
 # target to preprocess a source file
 src/convolutionSeparable_gold.cpp.i:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.i
 .PHONY : src/convolutionSeparable_gold.cpp.i
 
 src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
@@ -148,6 +163,7 @@ src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
 # target to generate assembly for a file
 src/convolutionSeparable_gold.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.s
 .PHONY : src/convolutionSeparable_gold.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -177,6 +193,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/main_prof_nv.o: src/main_prof_nv.cpp.o
+
+.PHONY : src/main_prof_nv.o
+
+# target to build an object file
+src/main_prof_nv.cpp.o:
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.o
+.PHONY : src/main_prof_nv.cpp.o
+
+src/main_prof_nv.i: src/main_prof_nv.cpp.i
+
+.PHONY : src/main_prof_nv.i
+
+# target to preprocess a source file
+src/main_prof_nv.cpp.i:
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.i
+.PHONY : src/main_prof_nv.cpp.i
+
+src/main_prof_nv.s: src/main_prof_nv.cpp.s
+
+.PHONY : src/main_prof_nv.s
+
+# target to generate assembly for a file
+src/main_prof_nv.cpp.s:
+	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.s
+.PHONY : src/main_prof_nv.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -184,14 +227,18 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... conv_550_demo"
 	@echo "... rebuild_cache"
+	@echo "... conv_550_demo"
+	@echo "... conv_prof_nv"
 	@echo "... src/convolutionSeparable_gold.o"
 	@echo "... src/convolutionSeparable_gold.i"
 	@echo "... src/convolutionSeparable_gold.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/main_prof_nv.o"
+	@echo "... src/main_prof_nv.i"
+	@echo "... src/main_prof_nv.s"
 .PHONY : help
 
 

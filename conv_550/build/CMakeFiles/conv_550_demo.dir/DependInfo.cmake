@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_gold.cpp" "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o"
-  "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/main.cpp" "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/main.cpp.o"
+  "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp" "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o"
+  "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp" "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -323,7 +323,7 @@ int main(int argc, char **argv)
         cout << endl;
     }*/
 
-    cout << imgL2error(h_OutputGPUSepShared, h_OutputCPU, imageW, imageH) << endl;
+//    cout << imgL2error(h_OutputGPUSepShared, h_OutputCPU, imageW, imageH) << endl;
 
     // free memory
     free(h_OutputGPUSep);

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lesia/courses/Arch/architectureproject/convolution/conv_550
+CMAKE_SOURCE_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build
+CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/conv_550_demo.dir/depend.make
@@ -260,9 +260,9 @@ CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o:
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o: /usr/local/cuda-8.0/samples/common/inc/helper_string.h
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o: CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.cmake
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o: ../src/convolutionKernel.cu
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building NVCC (Device) object CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o"
-	cd /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -E make_directory /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.
-	cd /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Release -D generated_file:STRING=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o -D generated_cubin_file:STRING=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o.cubin.txt -P /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building NVCC (Device) object CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o"
+	cd /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -E make_directory /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.
+	cd /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Release -D generated_file:STRING=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o -D generated_cubin_file:STRING=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o.cubin.txt -P /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.cmake
 
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o: ../src/convolutionSeparable.cu
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o: ../src/convolutionSeparable_common.h
@@ -467,22 +467,22 @@ CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o: /usr/local/cuda-8.0/samples/common/inc/helper_string.h
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o: CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o.cmake
 CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o: ../src/convolutionSeparable.cu
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building NVCC (Device) object CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o"
-	cd /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -E make_directory /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.
-	cd /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Release -D generated_file:STRING=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionSeparable.cu.o -D generated_cubin_file:STRING=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionSeparable.cu.o.cubin.txt -P /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building NVCC (Device) object CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o"
+	cd /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -E make_directory /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.
+	cd /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src && /usr/bin/cmake -D verbose:BOOL=$(VERBOSE) -D build_configuration:STRING=Release -D generated_file:STRING=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionSeparable.cu.o -D generated_cubin_file:STRING=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionSeparable.cu.o.cubin.txt -P /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o.cmake
 
 CMakeFiles/conv_550_demo.dir/src/main.cpp.o: CMakeFiles/conv_550_demo.dir/flags.make
 CMakeFiles/conv_550_demo.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/conv_550_demo.dir/src/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/conv_550_demo.dir/src/main.cpp.o -c /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/conv_550_demo.dir/src/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/conv_550_demo.dir/src/main.cpp.o -c /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp
 
 CMakeFiles/conv_550_demo.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/conv_550_demo.dir/src/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/main.cpp > CMakeFiles/conv_550_demo.dir/src/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp > CMakeFiles/conv_550_demo.dir/src/main.cpp.i
 
 CMakeFiles/conv_550_demo.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/conv_550_demo.dir/src/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/main.cpp -o CMakeFiles/conv_550_demo.dir/src/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp -o CMakeFiles/conv_550_demo.dir/src/main.cpp.s
 
 CMakeFiles/conv_550_demo.dir/src/main.cpp.o.requires:
 
@@ -497,16 +497,16 @@ CMakeFiles/conv_550_demo.dir/src/main.cpp.o.provides.build: CMakeFiles/conv_550_
 
 CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o: CMakeFiles/conv_550_demo.dir/flags.make
 CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o: ../src/convolutionSeparable_gold.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o -c /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_gold.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o -c /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp
 
 CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_gold.cpp > CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp > CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i
 
 CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_gold.cpp -o CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp -o CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s
 
 CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o.requires:
 
@@ -526,8 +526,8 @@ conv_550_demo_OBJECTS = \
 
 # External object files for target conv_550_demo
 conv_550_demo_EXTERNAL_OBJECTS = \
-"/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o" \
-"/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o"
+"/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o" \
+"/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o"
 
 conv_550_demo: CMakeFiles/conv_550_demo.dir/src/main.cpp.o
 conv_550_demo: CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o
@@ -537,7 +537,7 @@ conv_550_demo: CMakeFiles/conv_550_demo.dir/build.make
 conv_550_demo: /usr/local/cuda-8.0/lib64/libcudart_static.a
 conv_550_demo: /usr/lib/x86_64-linux-gnu/librt.so
 conv_550_demo: CMakeFiles/conv_550_demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable conv_550_demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable conv_550_demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/conv_550_demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -556,6 +556,6 @@ CMakeFiles/conv_550_demo.dir/clean:
 
 CMakeFiles/conv_550_demo.dir/depend: CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o
 CMakeFiles/conv_550_demo.dir/depend: CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o
-	cd /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lesia/courses/Arch/architectureproject/convolution/conv_550 /home/lesia/courses/Arch/architectureproject/convolution/conv_550 /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/conv_550_demo.dir/depend
 

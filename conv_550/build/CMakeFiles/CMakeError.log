@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp
+Change Dir: /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9c438/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9c438.dir/build.make CMakeFiles/cmTC_9c438.dir/build
-make[1]: Entering directory '/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9c438.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_9c438.dir/CheckSymbolExists.c.o   -c /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_9c438
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c438.dir/link.txt --verbose=1
-/usr/bin/cc  -fPIC     CMakeFiles/cmTC_9c438.dir/CheckSymbolExists.c.o  -o cmTC_9c438 -rdynamic 
-CMakeFiles/cmTC_9c438.dir/CheckSymbolExists.c.o: In function `main':
+Run Build Command:"/usr/bin/make" "cmTC_b3fb0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b3fb0.dir/build.make CMakeFiles/cmTC_b3fb0.dir/build
+make[1]: Entering directory '/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b3fb0.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_b3fb0.dir/CheckSymbolExists.c.o   -c /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_b3fb0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b3fb0.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC     CMakeFiles/cmTC_b3fb0.dir/CheckSymbolExists.c.o  -o cmTC_b3fb0 -rdynamic 
+CMakeFiles/cmTC_b3fb0.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_9c438.dir/build.make:97: recipe for target 'cmTC_9c438' failed
-make[1]: *** [cmTC_9c438] Error 1
-make[1]: Leaving directory '/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_9c438/fast' failed
-make: *** [cmTC_9c438/fast] Error 2
+CMakeFiles/cmTC_b3fb0.dir/build.make:97: recipe for target 'cmTC_b3fb0' failed
+make[1]: *** [cmTC_b3fb0] Error 1
+make[1]: Leaving directory '/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b3fb0/fast' failed
+make: *** [cmTC_b3fb0/fast] Error 2
 
-File /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp
+Change Dir: /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_25f7a/fast"
-/usr/bin/make -f CMakeFiles/cmTC_25f7a.dir/build.make CMakeFiles/cmTC_25f7a.dir/build
-make[1]: Entering directory '/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_25f7a.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_25f7a.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_25f7a
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_25f7a.dir/link.txt --verbose=1
-/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_25f7a.dir/CheckFunctionExists.c.o  -o cmTC_25f7a -rdynamic -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_ae294/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ae294.dir/build.make CMakeFiles/cmTC_ae294.dir/build
+make[1]: Entering directory '/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ae294.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_ae294.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ae294
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ae294.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_ae294.dir/CheckFunctionExists.c.o  -o cmTC_ae294 -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_25f7a.dir/build.make:97: recipe for target 'cmTC_25f7a' failed
-make[1]: *** [cmTC_25f7a] Error 1
-make[1]: Leaving directory '/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_25f7a/fast' failed
-make: *** [cmTC_25f7a/fast] Error 2
+CMakeFiles/cmTC_ae294.dir/build.make:97: recipe for target 'cmTC_ae294' failed
+make[1]: *** [cmTC_ae294] Error 1
+make[1]: Leaving directory '/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_ae294/fast' failed
+make: *** [cmTC_ae294/fast] Error 2
 
 

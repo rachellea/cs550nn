@@ -1,8 +1,6 @@
-Sample: convolutionSeparable
-Minimum spec: SM 2.0
+Convolution GPU implementation
 
-This sample implements a separable convolution filter of a 2D signal with a gaussian kernel.
-
-Key concepts:
-Image Processing
-Data Parallel Algorithms
+1. NVIDIA separable Convolution
+2. Naive full convolution kernel
+3. Naive separable convolution kernel
+4. Shared memory and ..

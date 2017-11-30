@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolution.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolution.h
 helper_cuda.h
 -
 assert.h
 -
 
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_common.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
 
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_gold.cpp
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp
 convolutionSeparable_common.h
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_common.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
 
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/main.cpp
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp
 cuda_runtime.h
 -
 helper_functions.h
@@ -26,9 +26,9 @@ helper_functions.h
 helper_cuda.h
 -
 convolutionSeparable_common.h
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionSeparable_common.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
 convolution.h
-/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolution.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolution.h
 iostream
 -
 

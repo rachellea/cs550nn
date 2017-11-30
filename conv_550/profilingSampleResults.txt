@@ -1,0 +1,98 @@
+lesia@lesia-cs-duke:~/courses/Arch/architectureproject/cs550nn/conv_550/build$ nvprof ./conv_prof_nv 
+==17684== NVPROF is profiling process 17684, command: ./conv_prof_nv
+GPU Device 0: "Quadro K620" with compute capability 5.0
+
+Running GPU separable convolution (10 identical iterations).
+convolutionSeparableGPU_NVIDIA, Throughput = 1430.8953 MPixels/sec, Time = 0.006595300 s, Size = 9437184 Pixels
+
+==17684== Profiling application: ./conv_prof_nv
+==17684== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 43.01%  36.370ms        11  3.3063ms  3.2943ms  3.3961ms  convolutionRowsKernel(float*, float*, int, int, int)
+ 42.68%  36.093ms        11  3.2812ms  3.1559ms  3.4249ms  convolutionColumnsKernel(float*, float*, int, int, int)
+  7.50%  6.3455ms         1  6.3455ms  6.3455ms  6.3455ms  [CUDA memcpy DtoH]
+  6.81%  5.7546ms         2  2.8773ms  1.0240us  5.7535ms  [CUDA memcpy HtoD]
+
+==17684== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 55.42%  107.85ms         3  35.950ms  206.83us  107.43ms  cudaMalloc
+ 37.30%  72.590ms         2  36.295ms  6.7788ms  65.811ms  cudaDeviceSynchronize
+  6.24%  12.144ms         2  6.0721ms  5.6511ms  6.4932ms  cudaMemcpy
+  0.59%  1.1441ms         3  381.36us  337.84us  409.05us  cudaGetDeviceProperties
+  0.19%  367.85us        91  4.0420us     147ns  194.39us  cuDeviceGetAttribute
+  0.12%  236.04us         3  78.678us  67.015us  100.76us  cudaFree
+  0.07%  127.07us        22  5.7760us  4.4230us  24.074us  cudaLaunch
+  0.03%  59.468us         1  59.468us  59.468us  59.468us  cuDeviceTotalMem
+  0.01%  27.357us         1  27.357us  27.357us  27.357us  cuDeviceGetName
+  0.01%  20.440us       110     185ns     163ns     644ns  cudaSetupArgument
+  0.01%  16.610us         1  16.610us  16.610us  16.610us  cudaMemcpyToSymbol
+  0.00%  6.4830us         1  6.4830us  6.4830us  6.4830us  cudaSetDevice
+  0.00%  5.3150us        22     241ns     164ns  1.1880us  cudaConfigureCall
+  0.00%  4.9920us        22     226ns     198ns     496ns  cudaGetLastError
+  0.00%  1.8190us         3     606ns     183ns  1.4150us  cuDeviceGetCount
+  0.00%  1.1210us         2     560ns     163ns     958ns  cudaGetDeviceCount
+  0.00%     831ns         3     277ns     143ns     402ns  cuDeviceGet
+
+
+lesia@lesia-cs-duke:~/courses/Arch/architectureproject/cs550nn/conv_550/build$ nvprof  --metrics achieved_occupancy ./conv_prof_nv 
+==22788== NVPROF is profiling process 22788, command: ./conv_prof_nv
+GPU Device 0: "Quadro K620" with compute capability 5.0
+
+Running GPU separable convolution (10 identical iterations).
+convolutionSeparableGPU_NVIDIA, Throughput = 1068.9575 MPixels/sec, Time = 0.008828400 s, Size = 9437184 Pixels
+
+==22788== Profiling application: ./conv_prof_nv
+==22788== Profiling result:
+==22788== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Quadro K620 (0)"
+    Kernel: convolutionColumnsKernel(float*, float*, int, int, int)
+         11                        achieved_occupancy                        Achieved Occupancy    0.696504    0.699436    0.697973
+    Kernel: convolutionRowsKernel(float*, float*, int, int, int)
+         11                        achieved_occupancy                        Achieved Occupancy    0.740413    0.758591    0.750209
+
+
+
+lesia@lesia-cs-duke:~/courses/Arch/architectureproject/cs550nn/conv_550/build$ nvprof --print-gpu-trace ./conv_prof_nv --benchmark -numdevices=2 -i=1
+==17766== NVPROF is profiling process 17766, command: ./conv_prof_nv --benchmark -numdevices=2 -i=1
+GPU Device 0: "Quadro K620" with compute capability 5.0
+
+Running GPU separable convolution (10 identical iterations).
+convolutionSeparableGPU_NVIDIA, Throughput = 1428.7290 MPixels/sec, Time = 0.006605300 s, Size = 9437184 Pixels
+
+==17766== Profiling application: ./conv_prof_nv --benchmark -numdevices=2 -i=1
+==17766== Profiling result:
+   Start  Duration            Grid Size      Block Size     Regs*    SSMem*    DSMem*      Size  Throughput           Device   Context    Stream  Name
+362.81ms     992ns                    -               -         -         -         -       68B  65.373MB/s  Quadro K620 (0)         1         7  [CUDA memcpy HtoD]
+362.91ms  5.7889ms                    -               -         -         -         -  36.000MB  6.0730GB/s  Quadro K620 (0)         1         7  [CUDA memcpy HtoD]
+368.70ms  3.2986ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [117]
+372.01ms  3.3318ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [125]
+375.35ms  3.2968ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [134]
+378.65ms  3.2925ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [142]
+381.95ms  3.2973ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [150]
+385.25ms  3.2731ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [158]
+388.53ms  3.2966ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [166]
+391.83ms  3.1823ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [174]
+395.02ms  3.3082ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [182]
+398.33ms  3.4282ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [190]
+401.76ms  3.2966ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [198]
+405.06ms  3.2959ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [206]
+408.36ms  3.3089ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [214]
+411.67ms  3.1608ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [222]
+414.83ms  3.3853ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [230]
+418.22ms  3.2998ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [238]
+421.52ms  3.2952ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [246]
+424.82ms  3.2415ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [254]
+428.07ms  3.2949ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [262]
+431.37ms  3.4406ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [270]
+434.81ms  3.2964ms           (24 768 1)        (16 4 1)        31  2.5000KB        0B         -           -  Quadro K620 (0)         1         7  convolutionRowsKernel(float*, float*, int, int, int) [278]
+438.11ms  3.2822ms           (192 48 1)        (16 8 1)        32  5.0625KB        0B         -           -  Quadro K620 (0)         1         7  convolutionColumnsKernel(float*, float*, int, int, int) [286]
+441.42ms  6.3634ms                    -               -         -         -         -  36.000MB  5.5248GB/s  Quadro K620 (0)         1         7  [CUDA memcpy DtoH]
+
+Regs: Number of registers used per CUDA thread. This number includes registers used internally by the CUDA driver and/or tools and can be more than what the compiler shows.
+SSMem: Static shared memory allocated per CUDA block.
+DSMem: Dynamic shared memory allocated per CUDA block.
+
+
+
+

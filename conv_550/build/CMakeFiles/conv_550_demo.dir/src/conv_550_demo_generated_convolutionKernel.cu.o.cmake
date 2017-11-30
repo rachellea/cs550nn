@@ -56,18 +56,18 @@ endif()
 
 # Set these up as variables to make reading the generated file easier
 set(CMAKE_COMMAND "/usr/bin/cmake") # path
-set(source_file "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src/convolutionKernel.cu") # path
-set(NVCC_generated_dependency_file "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.depend") # path
+set(source_file "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionKernel.cu") # path
+set(NVCC_generated_dependency_file "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.depend") # path
 set(CUDA_make2cmake "/usr/share/cmake-3.5/Modules/FindCUDA/make2cmake.cmake") # path
 set(CUDA_parse_cubin "/usr/share/cmake-3.5/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
 set(CUDA_HOST_COMPILER "/usr/bin/cc") # path
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.") # path
-set(generated_file_internal "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o") # path
-set(generated_cubin_file_internal "/home/lesia/courses/Arch/architectureproject/convolution/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o.cubin.txt") # path
+set(generated_file_path "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/.") # path
+set(generated_file_internal "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o") # path
+set(generated_cubin_file_internal "/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir/src/./conv_550_demo_generated_convolutionKernel.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda-8.0/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -arch=sm_30;--use_fast_math;-O3;--ptxas-options=--verbose ;; ) # list
@@ -77,7 +77,7 @@ set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64;-DCUDA_BUILD;-DCUDA_BUILD) # list
-set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda-8.0/include;-I/home/lesia/courses/Arch/architectureproject/convolution/conv_550;-I/home/lesia/courses/Arch/architectureproject/convolution/conv_550/src;-I/usr/local/cuda-8.0/include;-I/usr/local/cuda-8.0/samples/common/inc;-I/home/lesia/NVIDIA_CUDA-8.0_Samples/common/inc") # list (needs to be in quotes to handle spaces properly).
+set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda-8.0/include;-I/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550;-I/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src;-I/usr/local/cuda-8.0/include;-I/usr/local/cuda-8.0/samples/common/inc;-I/home/lesia/NVIDIA_CUDA-8.0_Samples/common/inc") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-c") # string
 set(cuda_language_flag ) # list
 
