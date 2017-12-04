@@ -1,0 +1,36 @@
+==26740== NVPROF is profiling process 26740, command: ./cdpLU
+==26740== Profiling application: ./cdpLU
+==26740== Profiling result:
+==26740== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: dgemm_sm35_ldg_nn_128x8x64x16x16
+          4                                       ipc                              Executed IPC    1.842035    1.868221    1.855531
+          4                                issued_ipc                                Issued IPC    2.897539    2.938866    2.918917
+          4                    issue_slot_utilization                    Issue Slot Utilization      55.24%      56.03%      55.65%
+          4                               issue_slots                               Issue Slots     1175815     1176108     1175926
+    Kernel: void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+          1                                       ipc                              Executed IPC    1.961671    1.961671    1.961671
+          1                                issued_ipc                                Issued IPC    2.886234    2.886234    2.886234
+          1                    issue_slot_utilization                    Issue Slot Utilization      64.18%      64.18%      64.18%
+          1                               issue_slots                               Issue Slots    15643487    15643487    15643487
+    Kernel: void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+          8                                       ipc                              Executed IPC    1.344393    1.368950    1.355763
+          8                                issued_ipc                                Issued IPC    1.774512    1.806902    1.789634
+          8                    issue_slot_utilization                    Issue Slot Utilization      35.79%      36.44%      36.09%
+          8                               issue_slots                               Issue Slots     1629852     1630291     1630104
+    Kernel: dgetrf_cdpentry(Parameters_s*)
+          1                                       ipc                              Executed IPC    0.626190    0.626190    0.626190
+          1                                issued_ipc                                Issued IPC    0.817787    0.817787    0.817787
+          1                    issue_slot_utilization                    Issue Slot Utilization      15.91%      15.91%      15.91%
+          1                               issue_slots                               Issue Slots   201882008   201882008   201882008
+    Kernel: dtrmm_sm35_ldg_nn_128x8x64x16x16
+          1                                       ipc                              Executed IPC    3.068622    3.068622    3.068622
+          1                                issued_ipc                                Issued IPC    4.830438    4.830438    4.830438
+          1                    issue_slot_utilization                    Issue Slot Utilization      90.30%      90.30%      90.30%
+          1                               issue_slots                               Issue Slots    30926667    30926667    30926667
+    Kernel: dgemm_sm_heavy_ldg_nn
+          3                                       ipc                              Executed IPC    1.984119    2.216762    2.062425
+          3                                issued_ipc                                Issued IPC    3.504807    3.931823    3.648426
+          3                    issue_slot_utilization                    Issue Slot Utilization      78.69%      88.15%      81.87%
+          3                               issue_slots                               Issue Slots     4444564    17512598     8800661

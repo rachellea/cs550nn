@@ -1,0 +1,31 @@
+==26726== NVPROF is profiling process 26726, command: ./cdpLU
+==26726== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==26726== Profiling application: ./cdpLU
+==26726== Profiling result:
+==26726== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: dgemm_sm35_ldg_nn_128x8x64x16x16
+          4                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          4                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+          4                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%
+    Kernel: void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+          1                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          1                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+          1                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%
+    Kernel: void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+          8                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          8                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+          8                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)      87.66%      87.66%      87.66%
+    Kernel: dgetrf_cdpentry(Parameters_s*)
+          1                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          1                   l1_cache_local_hit_rate                         L1 Local Hit Rate      97.95%      97.95%      97.95%
+          1                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)      86.82%      86.82%      86.82%
+    Kernel: dtrmm_sm35_ldg_nn_128x8x64x16x16
+          1                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          1                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+          1                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%
+    Kernel: dgemm_sm_heavy_ldg_nn
+          3                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+          3                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+          3                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)       0.00%       0.00%       0.00%

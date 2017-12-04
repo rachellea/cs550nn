@@ -1,0 +1,37 @@
+==26706== NVPROF is profiling process 26706, command: ./cdpLU
+==26706== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==26706== Profiling application: ./cdpLU
+==26706== Profiling result:
+==26706== Metric result:
+Invocations                               Metric Name                           Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: dgemm_sm35_ldg_nn_128x8x64x16x16
+          4                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      10.36%      10.54%      10.46%
+          4                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)      19.07%      20.67%      19.61%
+          4                   stall_memory_dependency           Issue Stall Reasons (Data Request)       8.00%       9.35%       8.51%
+          4                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)       9.25%       9.59%       9.38%
+    Kernel: void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+          1                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      24.39%      24.39%      24.39%
+          1                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       5.48%       5.48%       5.48%
+          1                   stall_memory_dependency           Issue Stall Reasons (Data Request)      15.56%      15.56%      15.56%
+          1                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)      13.40%      13.40%      13.40%
+    Kernel: void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+          8                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      20.43%      20.65%      20.57%
+          8                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       3.27%       4.18%       3.51%
+          8                   stall_memory_dependency           Issue Stall Reasons (Data Request)      16.44%      16.63%      16.51%
+          8                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)      25.12%      25.65%      25.43%
+    Kernel: dgetrf_cdpentry(Parameters_s*)
+          1                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      20.65%      20.65%      20.65%
+          1                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)      10.05%      10.05%      10.05%
+          1                   stall_memory_dependency           Issue Stall Reasons (Data Request)       2.81%       2.81%       2.81%
+          1                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)       2.83%       2.83%       2.83%
+    Kernel: dtrmm_sm35_ldg_nn_128x8x64x16x16
+          1                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)       1.55%       1.55%       1.55%
+          1                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       4.13%       4.13%       4.13%
+          1                   stall_memory_dependency           Issue Stall Reasons (Data Request)       1.27%       1.27%       1.27%
+          1                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)       6.67%       6.67%       6.67%
+    Kernel: dgemm_sm_heavy_ldg_nn
+          3                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)       1.31%       3.27%       2.60%
+          3                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       6.04%      11.40%       9.25%
+          3                   stall_memory_dependency           Issue Stall Reasons (Data Request)       4.22%       6.13%       5.43%
+          3                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)      12.07%      14.74%      13.80%
