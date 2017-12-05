@@ -23,6 +23,19 @@ using namespace std;
 int isDividedUp(int a, int b){ return ((a % b) != 0) ? (a / b + 1) : (a / b); }
 bool imgL2error(float* img1, float* img2, const int & imageW, const int & imageH);
 
+void seperableSharedKernelUnroll(
+	float *d_Input,
+	float *d_Output,
+	float *d_Buffer,
+	float *d_Kernel,
+	float *h_Kernel,
+	float *h_Input,
+	float *h_OutputGPUSepShared,
+	const int imageW,
+	const int imageH,
+	const int iterations,
+	StopWatchInterface *hTimer);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Main program
@@ -50,7 +63,7 @@ int main(int argc, char **argv)
 
     const int imageW =  3072;
     const int imageH =  3072;
-    const int iterations = 10;
+    const int iterations = 30;
 
     StopWatchInterface *hTimer = NULL;
 
@@ -88,7 +101,7 @@ int main(int argc, char **argv)
         h_Input[i] = (float)(rand() % 16);
     }
 
-
+	/*
     // Separable convolution on CPU
     {
         printf("Running CPU separable convolution (%u identical iterations).\n", iterations);
@@ -126,7 +139,7 @@ int main(int argc, char **argv)
         double cpuTime = 0.001 * sdkGetTimerValue(&hTimer) / (double)iterations;
         printf("convolutionSeparableCPU, Throughput = %.4f MPixels/sec, Time = %.9f s, Size = %u Pixels\n\n",
                (1.0e-6 * (double)(imageW * imageH)/ cpuTime), cpuTime, (imageW * imageH));
-    }
+    }*/
 
     // Separable Convolution on GPU
     {
@@ -180,6 +193,7 @@ int main(int argc, char **argv)
         checkCudaErrors(cudaFree(d_Input));
     }
 
+	/*
     // Simple Kernel straigtforward full approach
     {
         checkCudaErrors(cudaMalloc((void **)&d_Input,   imageW * imageH * sizeof(float)));
@@ -202,7 +216,15 @@ int main(int argc, char **argv)
                 sdkStartTimer(&hTimer);
             }
 
-            convolutionFullNaive(gridSize, blockSize, d_Input, d_Output, d_Kernel, imageW, imageH, KERNEL_RADIUS);
+            convolutionFullNaive(
+				gridSize, 
+				blockSize, 
+				d_Input, 
+				d_Output, 
+				d_Kernel, 
+				imageW, 
+				imageH, 
+				KERNEL_RADIUS);
         }
 
         checkCudaErrors(cudaDeviceSynchronize());
@@ -216,7 +238,7 @@ int main(int argc, char **argv)
         checkCudaErrors(cudaFree(d_Kernel));
         checkCudaErrors(cudaFree(d_Output));
         checkCudaErrors(cudaFree(d_Input));
-    }
+    }*/
 
     // Simple Kernel straigtforward separable approach
     {
@@ -303,6 +325,18 @@ int main(int argc, char **argv)
         checkCudaErrors(cudaFree(d_Input));
     }
 
+	seperableSharedKernelUnroll(
+		d_Input,
+		d_Output,
+		d_Buffer,
+		d_Kernel,
+		h_Kernel,
+		h_Input,
+		h_OutputGPUSepShared,
+		imageW,
+		imageH,
+		iterations,
+		hTimer);
 
 
  /*   for (int i = 0; i < imageW; ++i)
@@ -339,6 +373,61 @@ int main(int argc, char **argv)
     sdkDeleteTimer(&hTimer);
 
     exit(EXIT_SUCCESS);
+}
+
+void seperableSharedKernelUnroll(
+	float *d_Input,
+	float *d_Output,
+	float *d_Buffer,
+	float *d_Kernel,
+	float *h_Kernel,
+	float *h_Input,
+	float *h_OutputGPUSepShared,
+	const int imageW,
+	const int imageH,
+	const int iterations,
+	StopWatchInterface *hTimer)
+{
+		checkCudaErrors(cudaMalloc((void **)&d_Input, imageW * imageH * sizeof(float)));
+		checkCudaErrors(cudaMalloc((void **)&d_Output, imageW * imageH * sizeof(float)));
+		checkCudaErrors(cudaMalloc((void **)&d_Kernel, KERNEL_LENGTH * sizeof(float)));
+		checkCudaErrors(cudaMemcpy(d_Input, h_Input, imageW * imageH * sizeof(float), cudaMemcpyHostToDevice));
+		checkCudaErrors(cudaMemcpy(d_Kernel, h_Kernel, KERNEL_LENGTH * sizeof(float), cudaMemcpyHostToDevice));
+
+		checkCudaErrors(cudaMalloc((void **)&d_Buffer, imageW * imageH * sizeof(float)));
+
+
+		dim3 gridSize(isDividedUp(imageH, 16), isDividedUp(imageW, 16));
+		dim3 blockSize(16, 16);
+
+		printf("Running GPU naive separable convolution (%u identical iterations).\n", iterations);
+		for (int i = -1; i < iterations; i++)
+		{
+			//i == -1 -- warmup iteration
+			if (i == 0)
+			{
+				checkCudaErrors(cudaDeviceSynchronize());
+				sdkResetTimer(&hTimer);
+				sdkStartTimer(&hTimer);
+			}
+
+			convolutionSeparableRowSharedUnroll(gridSize, blockSize, d_Input, d_Buffer, d_Kernel, imageW, imageH);
+			convolutionSeparableColumnSharedUnroll(gridSize, blockSize, d_Buffer, d_Output, d_Kernel, imageW, imageH);
+			//convolutionSeparableRowShared(gridSize, blockSize, d_Input, d_Buffer, d_Kernel, imageW, imageH, KERNEL_RADIUS);
+			//convolutionSeparableColumnShared(gridSize, blockSize, d_Buffer, d_Output, d_Kernel, imageW, imageH, KERNEL_RADIUS);
+		}
+
+		checkCudaErrors(cudaDeviceSynchronize());
+		sdkStopTimer(&hTimer);
+		double cpuTime = 0.001 * sdkGetTimerValue(&hTimer) / (double)iterations;
+		printf("convolutionSeparableSharedUnrollGPU, Throughput = %.4f MPixels/sec, Time = %.9f s, Size = %u Pixels\n\n",
+			(1.0e-6 * (double)(imageW * imageH) / cpuTime), cpuTime, (imageW * imageH));
+
+		checkCudaErrors(cudaMemcpy(h_OutputGPUSepShared, d_Output, imageW * imageH * sizeof(float), cudaMemcpyDeviceToHost));
+
+		checkCudaErrors(cudaFree(d_Kernel));
+		checkCudaErrors(cudaFree(d_Output));
+		checkCudaErrors(cudaFree(d_Input));
 }
 
 bool imgL2error(float* img1, float* img2, const int & imageW, const int & imageH)
