@@ -1,0 +1,10 @@
+==1813== NVPROF is profiling process 1813, command: ./a.out 1024
+==1813== Profiling application: ./a.out 1024
+==1813== Profiling result:
+==1813== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: scale(float*, int, int)
+       1024                        achieved_occupancy                        Achieved Occupancy    0.015619    0.015633    0.015625
+    Kernel: reduce(float*, int, int)
+       1023                        achieved_occupancy                        Achieved Occupancy    0.015617    0.248674    0.215292

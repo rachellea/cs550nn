@@ -1,0 +1,15 @@
+==1834== NVPROF is profiling process 1834, command: ./a.out 1024
+==1834== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==1834== Profiling application: ./a.out 1024
+==1834== Profiling result:
+==1834== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: scale(float*, int, int)
+       1024                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+       1024                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+       1024                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)       0.00%     100.00%      95.00%
+    Kernel: reduce(float*, int, int)
+       1023                  l1_cache_global_hit_rate                        L1 Global Hit Rate       0.00%       0.00%       0.00%
+       1023                   l1_cache_local_hit_rate                         L1 Local Hit Rate       0.00%       0.00%       0.00%
+       1023                       l2_l1_read_hit_rate                    L2 Hit Rate (L1 Reads)      95.78%     100.00%      97.49%

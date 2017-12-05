@@ -1,0 +1,16 @@
+==1848== NVPROF is profiling process 1848, command: ./a.out 1024
+==1848== Profiling application: ./a.out 1024
+==1848== Profiling result:
+==1848== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: scale(float*, int, int)
+       1024                                       ipc                              Executed IPC    0.017279    0.065692    0.063603
+       1024                                issued_ipc                                Issued IPC    0.028078    0.077855    0.076424
+       1024                    issue_slot_utilization                    Issue Slot Utilization       0.54%       1.51%       1.48%
+       1024                               issue_slots                               Issue Slots          10       23858       11086
+    Kernel: reduce(float*, int, int)
+       1023                                       ipc                              Executed IPC    0.033737    0.479461    0.411225
+       1023                                issued_ipc                                Issued IPC    0.048274    0.673874    0.577145
+       1023                    issue_slot_utilization                    Issue Slot Utilization       0.98%      13.92%      11.92%
+       1023                               issue_slots                               Issue Slots          34     8873679     2963723
