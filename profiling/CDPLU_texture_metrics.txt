@@ -1,0 +1,24 @@
+==1676== NVPROF is profiling process 1676, command: ./cdpLU
+==1676== Profiling application: ./cdpLU
+==1676== Profiling result:
+==1676== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: dgemm_sm35_ldg_nn_128x8x64x16x16
+          4                               ldst_issued            Issued Load/Store Instructions      153135      153347      153226
+          4                             ldst_executed          Executed Load/Store Instructions      136320      136320      136320
+    Kernel: void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+          1                               ldst_issued            Issued Load/Store Instructions     3585187     3585187     3585187
+          1                             ldst_executed          Executed Load/Store Instructions     2596864     2596864     2596864
+    Kernel: void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+          8                               ldst_issued            Issued Load/Store Instructions      795243      795600      795412
+          8                             ldst_executed          Executed Load/Store Instructions      668160      668160      668160
+    Kernel: dgetrf_cdpentry(Parameters_s*)
+          1                               ldst_issued            Issued Load/Store Instructions    51225958    51225958    51225958
+          1                             ldst_executed          Executed Load/Store Instructions    30637728    30637728    30637728
+    Kernel: dtrmm_sm35_ldg_nn_128x8x64x16x16
+          1                               ldst_issued            Issued Load/Store Instructions     3730626     3730626     3730626
+          1                             ldst_executed          Executed Load/Store Instructions     3491712     3491712     3491712
+    Kernel: dgemm_sm_heavy_ldg_nn
+          3                               ldst_issued            Issued Load/Store Instructions      395661     1477773      756508
+          3                             ldst_executed          Executed Load/Store Instructions      364416     1384192      704341
