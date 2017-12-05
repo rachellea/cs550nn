@@ -1,0 +1,12 @@
+==1951== NVPROF is profiling process 1951, command: ./a.out 1024
+==1951== Profiling application: ./a.out 1024
+==1951== Profiling result:
+==1951== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: scale(float*, int, int)
+       1024                               ldst_issued            Issued Load/Store Instructions           0        3068        1534
+       1024                             ldst_executed          Executed Load/Store Instructions           0        3068        1534
+    Kernel: reduce(float*, int, int)
+       1023                               ldst_issued            Issued Load/Store Instructions           5     5508783     1837979
+       1023                             ldst_executed          Executed Load/Store Instructions           4     4186116     1397931
