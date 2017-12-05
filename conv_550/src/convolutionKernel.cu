@@ -1,5 +1,7 @@
 #include "convolution.h"
 
+#define KERNAL_RAD 8
+
 __global__ void convKernelFullNaiveSepKernel(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH, int kernelR)
 {
     int row = blockDim.y * blockIdx.y + threadIdx.y;
@@ -92,10 +94,10 @@ __global__ void convKernelSeparableRowShared(float* d_Input, float* d_Output, fl
     __shared__ float data[ CACHE_H * (CACHE_W + KERNAL_RAD * 2)];
 
     // Initializations
-    int row = blockDim.y * blockIdx.y + threadIdx.y;
-    int col = blockDim.x * blockIdx.x + threadIdx.x;
-    int loc = row * imageW + col;
-    int shift = threadIdx.y * (CACHE_W + kernelR * 2);
+    const int row = blockDim.y * blockIdx.y + threadIdx.y;
+    const int col = blockDim.x * blockIdx.x + threadIdx.x;
+    const int loc = row * imageW + col;
+    const int shift = threadIdx.y * (CACHE_W + kernelR * 2);
 
     // left apron
     data[threadIdx.x + shift] = (col - kernelR >= 0) ? d_Input[ loc - kernelR] : 0;
@@ -107,8 +109,10 @@ __global__ void convKernelSeparableRowShared(float* d_Input, float* d_Output, fl
 
     // convolution
     float s = 0;
-    for (int j = -kernelR; j <= kernelR; j++)
-        s += data[kernelR + threadIdx.x + j + shift] * d_Kernel[kernelR - j];
+	for (int j = -kernelR; j <= kernelR; j++)
+	{
+		s += data[kernelR + threadIdx.x + j + shift] * d_Kernel[kernelR - j];
+	}
 
     d_Output[loc] = s;
 }
@@ -119,10 +123,10 @@ __global__ void convKernelSeparableColumnShared(float* d_Input, float* d_Output,
     __shared__ float data[CACHE_W * (CACHE_H + KERNAL_RAD * 2)];
 
     // Initializations
-    int row = blockDim.y * blockIdx.y + threadIdx.y;
-    int col = blockDim.x * blockIdx.x + threadIdx.x;
-    int loc = row * imageW + col;
-    int shift = threadIdx.y * CACHE_W;
+    const int row = blockDim.y * blockIdx.y + threadIdx.y;
+    const int col = blockDim.x * blockIdx.x + threadIdx.x;
+    const int loc = row * imageW + col;
+    const int shift = threadIdx.y * CACHE_W;
 
     // top apron
     data[threadIdx.x + shift] = (row - kernelR >=0) ? d_Input[ loc - imageW * kernelR] : 0;
@@ -140,6 +144,133 @@ __global__ void convKernelSeparableColumnShared(float* d_Input, float* d_Output,
 
     d_Output[loc] = s;
 }
+
+__global__ void convKernelSeparableRowSharedUnroll(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH)
+{
+	// Data cache
+	__shared__ float data[CACHE_H * (CACHE_W + KERNAL_RAD * 2)];
+
+	// Initializations
+	const int row = blockDim.y * blockIdx.y + threadIdx.y;
+	const int col = blockDim.x * blockIdx.x + threadIdx.x;
+	const int loc = row * imageW + col;
+	const int shift = threadIdx.y * (CACHE_W + KERNAL_RAD * 2);
+
+	// left apron
+	data[threadIdx.x + shift] = (col - KERNAL_RAD >= 0) ? d_Input[loc - KERNAL_RAD] : 0;
+	// right apron
+	data[threadIdx.x + blockDim.x + shift] = (col + KERNAL_RAD < imageW) ? d_Input[loc + KERNAL_RAD] : 0;
+
+	//compute and store results
+	__syncthreads();
+
+	// convolution
+	float s = 0;
+
+#pragma unroll
+
+	for (int j = -KERNAL_RAD; j <= KERNAL_RAD; j++)
+	{
+		s += data[KERNAL_RAD + threadIdx.x + j + shift] * d_Kernel[KERNAL_RAD - j];
+	}
+
+	d_Output[loc] = s;
+}
+
+__global__ void convKernelSeparableColumnSharedUnroll(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH)
+{
+	// Data cache
+	__shared__ float data[CACHE_W * (CACHE_H + KERNAL_RAD * 2)];
+
+	// Initializations
+	const int row = blockDim.y * blockIdx.y + threadIdx.y;
+	const int col = blockDim.x * blockIdx.x + threadIdx.x;
+	const int loc = row * imageW + col;
+	const int shift = threadIdx.y * CACHE_W;
+
+	// top apron
+	data[threadIdx.x + shift] = (row - KERNAL_RAD >= 0) ? d_Input[loc - imageW * KERNAL_RAD] : 0;
+	// bottom apron
+	data[threadIdx.x + shift + blockDim.y * CACHE_W] = (row + KERNAL_RAD < imageH) ? d_Input[loc + imageW * KERNAL_RAD] : 0;
+
+	//Compute and store results
+	__syncthreads();
+
+	// convolution
+	float s = 0;
+
+#pragma unroll
+
+	for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++) {
+		s += data[threadIdx.x + (threadIdx.y + i + KERNAL_RAD) * CACHE_W] * d_Kernel[KERNAL_RAD - i];
+	}
+
+	d_Output[loc] = s;
+}
+
+
+__global__ void convKernelSeparableRowSharedMul(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH)
+{
+	// Data cache
+	__shared__ float data[CACHE_H * (CACHE_W + KERNAL_RAD * 2)];
+
+	// Initializations
+	const int row = __mul24(blockDim.y, blockIdx.y) + threadIdx.y;
+	const int col = __mul24(blockDim.x, blockIdx.x) + threadIdx.x;
+	const int loc = __mul24(row, imageW) + col;
+	const int shift = __mul24(threadIdx.y, (CACHE_W + KERNAL_RAD * 2));
+
+	// left apron
+	data[threadIdx.x + shift] = (col - KERNAL_RAD >= 0) ? d_Input[loc - KERNAL_RAD] : 0;
+	// right apron
+	data[threadIdx.x + blockDim.x + shift] = (col + KERNAL_RAD < imageW) ? d_Input[loc + KERNAL_RAD] : 0;
+
+	//compute and store results
+	__syncthreads();
+
+	// convolution
+	float s = 0;
+
+#pragma unroll
+
+	for (int j = -KERNAL_RAD; j <= KERNAL_RAD; j++)
+	{
+		s += data[KERNAL_RAD + threadIdx.x + j + shift] * d_Kernel[KERNAL_RAD - j];
+	}
+
+	d_Output[loc] = s;
+}
+
+__global__ void convKernelSeparableColumnSharedMul(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH)
+{
+	// Data cache
+	__shared__ float data[CACHE_W * (CACHE_H + KERNAL_RAD * 2)];
+
+	// Initializations
+	const int row = __mul24(blockDim.y, blockIdx.y) + threadIdx.y;
+	const int col = __mul24(blockDim.x, blockIdx.x) + threadIdx.x;
+	const int loc = __mul24(row, imageW) + col;
+	const int shift = __mul24(threadIdx.y, CACHE_W);
+
+	// top apron
+	data[threadIdx.x + shift] = (row - KERNAL_RAD >= 0) ? d_Input[loc - __mul24(imageW, KERNAL_RAD)] : 0;
+	// bottom apron
+	data[threadIdx.x + shift + __mul24(blockDim.y, CACHE_W)] = (row + KERNAL_RAD < imageH) ? d_Input[loc + __mul24(imageW, KERNAL_RAD)] : 0;
+
+	//Compute and store results
+	__syncthreads();
+
+	// convolution
+	float s = 0;
+
+#pragma unroll
+
+	for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++)
+		s += data[threadIdx.x + __mul24((threadIdx.y + i + KERNAL_RAD), CACHE_W)] * d_Kernel[KERNAL_RAD - i];
+
+	d_Output[loc] = s;
+}
+
 
 
 void convolutionSeparableColumnNaive(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR)
@@ -162,13 +293,32 @@ void convolutionFullNaive(dim3 gridSize, dim3 blockSize, float* d_Input,float* d
     convKernelFullNaive<< <gridSize, blockSize>> >(d_Input,d_Output,d_Kernel, imageW, imageH, kernelR);
 }
 
-void convolutionSeparableColumnShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR)
+void convolutionSeparableColumnShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW, int imageH, int kernelR)
 {
     convKernelSeparableColumnShared<< <gridSize, blockSize>> >(d_Input,d_Output,d_Kernel, imageW, imageH, kernelR);
 }
 
-void convolutionSeparableRowShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int  imageW,int imageH,int kernelR)
+void convolutionSeparableRowShared(dim3 gridSize, dim3 blockSize, float* d_Input,float* d_Output,float* d_Kernel,int imageW, int imageH, int kernelR)
 {
     convKernelSeparableRowShared<< <gridSize, blockSize>> >(d_Input,d_Output,d_Kernel, imageW, imageH, kernelR);
 }
 
+void convolutionSeparableRowSharedUnroll(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int imageW, int imageH)
+{
+	convKernelSeparableRowSharedUnroll << <gridSize, blockSize >> >(d_Input, d_Output, d_Kernel, imageW, imageH);
+}
+
+void convolutionSeparableColumnSharedUnroll(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int imageW, int imageH)
+{
+	convKernelSeparableColumnSharedUnroll << <gridSize, blockSize >> >(d_Input, d_Output, d_Kernel, imageW, imageH);
+}
+
+void convolutionSeparableColumnSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH)
+{
+	convKernelSeparableColumnSharedMul << <gridSize, blockSize >> >(d_Input, d_Output, d_Kernel, imageW, imageH);
+}
+
+void convolutionSeparableRowSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int imageW, int imageH)
+{
+	convKernelSeparableRowSharedMul << <gridSize, blockSize >> >(d_Input, d_Output, d_Kernel, imageW, imageH);
+}
