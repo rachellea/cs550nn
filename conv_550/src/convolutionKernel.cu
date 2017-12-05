@@ -185,6 +185,8 @@ __global__ void convKernelSeparableRowSharedUnroll(float* d_Input, float* d_Outp
 	data[KERNAL_RAD + threadIdx.x + 7 + shift] * d_Kernel[1] +
 	data[KERNAL_RAD + threadIdx.x + 8 + shift] * d_Kernel[0];*/
 
+#pragma unroll
+
 	for (int j = -KERNAL_RAD; j <= KERNAL_RAD; j++)
 	{
 		s += data[KERNAL_RAD + threadIdx.x + j + shift] * d_Kernel[KERNAL_RAD - j];
@@ -232,6 +234,8 @@ __global__ void convKernelSeparableColumnSharedUnroll(float* d_Input, float* d_O
 		data[threadIdx.x + (threadIdx.y + 15) * CACHE_W] * d_Kernel[1] +
 		data[threadIdx.x + (threadIdx.y + 16) * CACHE_W] * d_Kernel[0];*/
 
+#pragma unroll
+
 	for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++) {
 		s += data[threadIdx.x + (threadIdx.y + i + KERNAL_RAD) * CACHE_W] * d_Kernel[KERNAL_RAD - i];
 	}
@@ -261,6 +265,7 @@ __global__ void convKernelSeparableRowSharedMul(float* d_Input, float* d_Output,
 
 	// convolution
 	float s = 0;
+
 	for (int j = -kernelR; j <= kernelR; j++)
 	{
 		s += data[kernelR + threadIdx.x + j + shift] * d_Kernel[kernelR - j];
