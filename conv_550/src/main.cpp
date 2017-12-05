@@ -492,8 +492,8 @@ void seperableSharedKernelMul(
 			sdkStartTimer(&hTimer);
 		}
 
-		convolutionSeparableRowSharedMul(gridSize, blockSize, d_Input, d_Buffer, d_Kernel, imageW, imageH, KERNEL_RADIUS);
-		convolutionSeparableColumnSharedMul(gridSize, blockSize, d_Buffer, d_Output, d_Kernel, imageW, imageH, KERNEL_RADIUS);
+		convolutionSeparableRowSharedMul(gridSize, blockSize, d_Input, d_Buffer, d_Kernel, imageW, imageH);
+		convolutionSeparableColumnSharedMul(gridSize, blockSize, d_Buffer, d_Output, d_Kernel, imageW, imageH);
 	}
 
 	checkCudaErrors(cudaDeviceSynchronize());

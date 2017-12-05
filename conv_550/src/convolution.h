@@ -28,8 +28,8 @@ extern "C" void convolutionSeparableColumnSharedUnroll(dim3 gridSize, dim3 block
 extern "C" void convolutionSeparableRowSharedUnroll(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 
 // Shared approach mul
-extern "C" void convolutionSeparableColumnSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH, int kernelR);
-extern "C" void convolutionSeparableRowSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH, int kernelR);
+extern "C" void convolutionSeparableColumnSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
+extern "C" void convolutionSeparableRowSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 
 #endif
 
