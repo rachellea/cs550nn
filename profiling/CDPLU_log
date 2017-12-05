@@ -1,0 +1,47 @@
+==1580== NVPROF is profiling process 1580, command: ./cdpLU
+==1580== Profiling application: ./cdpLU
+==1580== Profiling result:
+            Type  Time(%)      Time  Calls (host)  Calls (device)       Avg       Min       Max  Name
+ GPU activities:   75.92%  376.17ms             1               0  376.17ms  376.17ms  376.17ms  dgetrf_cdpentry(Parameters_s*)
+                    8.55%  42.361ms             0            2047  20.694us  12.064us  38.367us  void iamax_kernel<double, double, int=256, int=0>(cublasIamaxParams<double, double>)
+                    4.20%  20.814ms             0              30  693.79us  252.89us  1.2061ms  dlaswp(int, double*, int, int*, int, int)
+                    2.98%  14.778ms             0            1021  14.473us  10.688us  18.272us  void swap_kernel<double>(cublasSwapParams<double>)
+                    2.68%  13.270ms             0            1008  13.164us  9.2160us  22.560us  __nv_static_66__53_tmpxft_000014d8_00000000_12_ger_dp_compute_70_cpp1_ii_4903d6ba__Z10ger_kernelIddLi256ELi5ELb0EEv15cublasGerParamsIT_T0_E
+                    2.14%  10.586ms             0            1023  10.348us  8.2240us  14.016us  void scal_kernel_val<double, double, int=0>(cublasScalParamsVal<double, double>)
+                    1.02%  5.0350ms             3               -  1.6783ms  4.6720us  3.9407ms  [CUDA memcpy DtoH]
+                    0.69%  3.4106ms             7               -  487.23us  1.5680us  1.2078ms  [CUDA memcpy HtoD]
+                    0.55%  2.7020ms             3               8  245.64us  100.86us  840.54us  dgemm_sm_heavy_ldg_nn
+                    0.29%  1.4225ms             1               0  1.4225ms  1.4225ms  1.4225ms  dtrmm_sm35_ldg_nn_128x8x64x16x16
+                    0.27%  1.3287ms             8               0  166.09us  162.08us  168.13us  void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+                    0.20%  995.58us             0              15  66.371us  45.568us  90.272us  void trsm_left_kernel<double, int=256, int=4, bool=1, bool=0, bool=0, bool=0, bool=1>(cublasTrsmParams<double>, double, double const *, int)
+                    0.19%  962.20us             0              11  87.472us  49.151us  163.10us  dgemm_sm35_ldg_nn_64x8x128x8x32
+                    0.17%  856.54us             1               0  856.54us  856.54us  856.54us  void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+                    0.16%  808.57us             4               4  101.07us  93.312us  111.78us  dgemm_sm35_ldg_nn_128x8x64x16x16
+                    0.00%  1.7280us             1               -  1.7280us  1.7280us  1.7280us  [CUDA memset]
+      API calls:   44.69%  826.57ms             1               -  826.57ms  826.57ms  826.57ms  cudaProfilerStart
+                   20.40%  377.34ms             1               -  377.34ms  377.34ms  377.34ms  cudaDeviceSynchronize
+                   16.63%  307.54ms             1               -  307.54ms  307.54ms  307.54ms  cudaDeviceReset
+                   15.66%  289.63ms             8               -  36.203ms  20.497us  284.86ms  cudaFree
+                    1.67%  30.912ms            18               -  1.7173ms  6.9210us  30.725ms  cudaLaunch
+                    0.50%  9.2107ms            10               -  921.07us  9.1340us  4.2144ms  cudaMemcpy
+                    0.29%  5.2768ms             1               -  5.2768ms  5.2768ms  5.2768ms  cudaStreamSynchronize
+                    0.08%  1.4232ms            10               -  142.32us  15.581us  299.11us  cudaMalloc
+                    0.04%  731.54us             4               -  182.89us  168.00us  222.73us  cudaGetDeviceProperties
+                    0.02%  438.93us           185               -  2.3720us     247ns  66.149us  cuDeviceGetAttribute
+                    0.02%  358.49us             2               -  179.25us  177.05us  181.45us  cuDeviceTotalMem
+                    0.00%  50.847us             1               -  50.847us  50.847us  50.847us  cudaStreamCreate
+                    0.00%  50.227us             1               -  50.227us  50.227us  50.227us  cudaMemset
+                    0.00%  48.081us           151               -     318ns     222ns  4.5980us  cudaSetupArgument
+                    0.00%  42.882us             2               -  21.441us  16.619us  26.263us  cuDeviceGetName
+                    0.00%  15.111us            16               -     944ns     638ns  2.3950us  cudaEventCreateWithFlags
+                    0.00%  8.4880us            26               -     326ns     218ns     765ns  cudaGetLastError
+                    0.00%  8.3000us            18               -     461ns     258ns  2.1370us  cudaConfigureCall
+                    0.00%  8.2260us            11               -     747ns     519ns  2.1760us  cudaDeviceGetAttribute
+                    0.00%  3.1970us             4               -     799ns     258ns  1.7140us  cuDeviceGetCount
+                    0.00%  3.0290us             1               -  3.0290us  3.0290us  3.0290us  cudaSetDevice
+                    0.00%  2.3280us             1               -  2.3280us  2.3280us  2.3280us  cudaProfilerStop
+                    0.00%  2.2450us             1               -  2.2450us  2.2450us  2.2450us  cudaGetDevice
+                    0.00%  1.6630us             3               -     554ns     340ns     962ns  cuDeviceGet
+                    0.00%  1.2290us             1               -  1.2290us  1.2290us  1.2290us  cuInit
+                    0.00%  1.1120us             1               -  1.1120us  1.1120us  1.1120us  cudaGetDeviceCount
+                    0.00%     851ns             1               -     851ns     851ns     851ns  cuDriverGetVersion

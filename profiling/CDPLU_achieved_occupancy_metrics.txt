@@ -1,0 +1,18 @@
+==1554== NVPROF is profiling process 1554, command: ./cdpLU
+==1554== Profiling application: ./cdpLU
+==1554== Profiling result:
+==1554== Metric result:
+Invocations                               Metric Name                        Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: dgemm_sm35_ldg_nn_128x8x64x16x16
+          4                        achieved_occupancy                        Achieved Occupancy    0.153400    0.157840    0.156022
+    Kernel: void magma_bdmm_kernel<double, bool=1, int=5, int=5, int=3, int=3>(int, int, int, double*, double const *, double const *, int, int, int, double const *, double const *, double, double, int, int, bool, bool, bool, bool, bool, bool)
+          1                        achieved_occupancy                        Achieved Occupancy    0.458402    0.458402    0.458402
+    Kernel: void trmm_right_kernel_core<double, int=256, int=4, int=128, bool=0, bool=1, bool=0, bool=0, bool=1>(cublasTrmmParams<double>, double, int)
+          8                        achieved_occupancy                        Achieved Occupancy    0.502623    0.514526    0.507816
+    Kernel: dgetrf_cdpentry(Parameters_s*)
+          1                        achieved_occupancy                        Achieved Occupancy    0.281806    0.281806    0.281806
+    Kernel: dtrmm_sm35_ldg_nn_128x8x64x16x16
+          1                        achieved_occupancy                        Achieved Occupancy    0.447583    0.447583    0.447583
+    Kernel: dgemm_sm_heavy_ldg_nn
+          3                        achieved_occupancy                        Achieved Occupancy    0.165772    0.228389    0.186671
