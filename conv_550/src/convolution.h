@@ -27,9 +27,13 @@ extern "C" void convolutionSeparableRowShared(dim3 gridSize, dim3 blockSize, flo
 extern "C" void convolutionSeparableColumnSharedUnroll(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 extern "C" void convolutionSeparableRowSharedUnroll(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 
-// Shared approach mul
+// Shared approach _mul24 and unroll
 extern "C" void convolutionSeparableColumnSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 extern "C" void convolutionSeparableRowSharedMul(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
+
+// Shared approach multiple pixels per thread
+extern "C" void convolutionSeparableColumnSharedTile(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
+extern "C" void convolutionSeparableRowSharedTile(dim3 gridSize, dim3 blockSize, float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH);
 
 #endif
 
