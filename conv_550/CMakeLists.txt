@@ -59,7 +59,8 @@ if(CUDA_FOUND)
     include_directories(${CUDA_TOOLKIT_ROOT_DIR}/samples/common/inc)
     add_definitions(-DCUDA_BUILD)
     cuda_add_executable(conv_550_demo ${PROJECT_SOURCE_DIR}/src/main.cpp ${conv_src} ${all_sources})
-    cuda_add_executable(conv_prof_nv ${PROJECT_SOURCE_DIR}/src/main_prof_nv.cpp ${conv_src} ${all_sources})
+    #cuda_add_executable(conv_prof_nv ${PROJECT_SOURCE_DIR}/src/main_prof_nv.cpp ${conv_src} ${all_sources})
+    cuda_add_executable(conv_prof_compare_demo ${PROJECT_SOURCE_DIR}/src/mainForComparison.cpp ${conv_src} ${all_sources})
 endif()
 
 

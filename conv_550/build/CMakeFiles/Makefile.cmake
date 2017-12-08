@@ -13,8 +13,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
   "CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.depend"
   "CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o.depend"
-  "CMakeFiles/conv_prof_nv.dir/src/conv_prof_nv_generated_convolutionKernel.cu.o.depend"
-  "CMakeFiles/conv_prof_nv.dir/src/conv_prof_nv_generated_convolutionSeparable.cu.o.depend"
+  "CMakeFiles/conv_prof_compare_demo.dir/src/conv_prof_compare_demo_generated_convolutionKernel.cu.o.depend"
+  "CMakeFiles/conv_prof_compare_demo.dir/src/conv_prof_compare_demo_generated_convolutionSeparable.cu.o.depend"
   "/usr/share/cmake-3.5/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeCommonLanguageInclude.cmake"
@@ -53,13 +53,13 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionKernel.cu.o.cmake"
   "CMakeFiles/conv_550_demo.dir/src/conv_550_demo_generated_convolutionSeparable.cu.o.cmake"
-  "CMakeFiles/conv_prof_nv.dir/src/conv_prof_nv_generated_convolutionKernel.cu.o.cmake"
-  "CMakeFiles/conv_prof_nv.dir/src/conv_prof_nv_generated_convolutionSeparable.cu.o.cmake"
+  "CMakeFiles/conv_prof_compare_demo.dir/src/conv_prof_compare_demo_generated_convolutionKernel.cu.o.cmake"
+  "CMakeFiles/conv_prof_compare_demo.dir/src/conv_prof_compare_demo_generated_convolutionSeparable.cu.o.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/conv_550_demo.dir/DependInfo.cmake"
-  "CMakeFiles/conv_prof_nv.dir/DependInfo.cmake"
+  "CMakeFiles/conv_prof_compare_demo.dir/DependInfo.cmake"
   )

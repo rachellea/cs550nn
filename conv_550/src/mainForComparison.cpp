@@ -817,7 +817,7 @@ void seperableSharedKernelTileCoales(
 	dim3 gridSizeCol(isDividedUp(imageW, 16), isDividedUp(imageH, 8 * 2));
 	dim3 blockSizeCol(16, 8);
 
-	printf("Running GPU naive separable convolution (%u identical iterations).\n", iterations);
+    printf("Running Algorithm 6 of separable convolution (%u identical iterations).\n", iterations);
 	for (int i = -1; i < iterations; i++)
 	{
 		//i == -1 -- warmup iteration
