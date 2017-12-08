@@ -160,8 +160,8 @@ int main(int argc, char **argv)
     *d_Kernel;
 
 
-	const int imageW = 3072;
-	const int imageH = 3072;
+    const int imageW = 1024;
+    const int imageH = 1024;
     const int iterations = 1;
 
     StopWatchInterface *hTimer = NULL;
