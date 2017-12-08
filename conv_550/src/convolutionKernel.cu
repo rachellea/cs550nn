@@ -419,7 +419,7 @@ __global__ void convKernelSeparableRowSharedTileCoales(float* d_Input, float* d_
 	// left apron
 	data[threadIdx.x + shift] = (col - KERNAL_RAD >= 0) ? d_Input[loc - KERNAL_RAD] : 0;
 	//data[threadIdx.x + blockDim.x + shift] = (col - KERNAL_RAD + blockDim.x >= 0) ? d_Input[loc - KERNAL_RAD + blockDim.x] : 0;
-	data[threadIdx.x + blockDim.x + shift] = d_Input[loc - KERNAL_RAD + blockDim.x];
+	data[threadIdx.x + blockDim.x + shift] = d_Input[loc];
 	// right apron
 	data[threadIdx.x + blockDimX + shift] = (col + KERNAL_RAD < imageW) ? d_Input[loc + KERNAL_RAD] : 0;
 	data[threadIdx.x + blockDimX + blockDim.x + shift] = (col + KERNAL_RAD + blockDim.x < imageW) ? d_Input[loc + KERNAL_RAD + blockDim.x] : 0;
@@ -451,19 +451,20 @@ __global__ void convKernelSeparableColumnSharedTileCoales(float* d_Input, float*
 	__shared__ float data[CACHE_W * (TILES * CACHE_H + KERNAL_RAD * 2)];
 
 	// Initializations
-	const int threadY = __mul24(TILES, threadIdx.y);
 	const int blockDimY = __mul24(TILES, blockDim.y);
-	const int row = __mul24(blockDimY, blockIdx.y) + threadY;
+	const int row = __mul24(blockDimY, blockIdx.y) + threadIdx.y;
 	const int col = __mul24(blockDim.x, blockIdx.x) + threadIdx.x;
 	const int loc = __mul24(row, imageW) + col;
-	const int shift = __mul24(threadY, CACHE_W);
+	const int shift = __mul24(threadIdx.y, CACHE_W);
 
 	// top apron
 	data[threadIdx.x + shift] = (row - KERNAL_RAD >= 0) ? d_Input[loc - __mul24(imageW, KERNAL_RAD)] : 0;
-	data[threadIdx.x + shift + CACHE_W] = (row + 1 - KERNAL_RAD >= 0) ? d_Input[loc + imageW - __mul24(imageW, KERNAL_RAD)] : 0;
+	//data[threadIdx.x + shift + blockDim.y * CACHE_W] = (row + blockDim.y - KERNAL_RAD >= 0) ? d_Input[loc + blockDim.y*imageW - __mul24(imageW, KERNAL_RAD)] : 0;
+	data[threadIdx.x + shift + blockDim.y * CACHE_W] = d_Input[loc];
 	// bottom apron
 	data[threadIdx.x + shift + __mul24(blockDimY, CACHE_W)] = (row + KERNAL_RAD < imageH) ? d_Input[loc + __mul24(imageW, KERNAL_RAD)] : 0;
-	data[threadIdx.x + shift + __mul24(blockDimY, CACHE_W) + CACHE_W] = (row + 1 + KERNAL_RAD < imageH) ? d_Input[loc + imageW + __mul24(imageW, KERNAL_RAD)] : 0;
+	data[threadIdx.x + shift + __mul24(blockDimY + blockDim.y, CACHE_W)] = (row + blockDim.y + KERNAL_RAD < imageH) ? 
+		d_Input[loc + blockDim.y * imageW + __mul24(imageW, KERNAL_RAD)] : 0;
 
 	//Compute and store results
 	__syncthreads();
@@ -476,12 +477,12 @@ __global__ void convKernelSeparableColumnSharedTileCoales(float* d_Input, float*
 
 	for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++)
 	{
-		s += data[threadIdx.x + __mul24((threadY + i + KERNAL_RAD), CACHE_W)] * c_Kernel[KERNAL_RAD - i];
-		s1 += data[threadIdx.x + __mul24((threadY + 1 + i + KERNAL_RAD), CACHE_W)] * c_Kernel[KERNAL_RAD - i];
+		s += data[threadIdx.x + __mul24((threadIdx.y + i + KERNAL_RAD), CACHE_W)] * c_Kernel[KERNAL_RAD - i];
+		s1 += data[threadIdx.x + __mul24((threadIdx.y + blockDim.y + i + KERNAL_RAD), CACHE_W)] * c_Kernel[KERNAL_RAD - i];
 	}
 
 	d_Output[loc] = s;
-	d_Output[loc + imageW] = s1;
+	d_Output[loc + __mul24(imageW, blockDim.y)] = s1;
 }
 
 
