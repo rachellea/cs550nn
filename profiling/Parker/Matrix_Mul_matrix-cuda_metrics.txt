@@ -1,0 +1,22 @@
+==11996== NVPROF is profiling process 11996, command: ./a.out
+==11996== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==11996== Profiling application: ./a.out
+==11996== Profiling result:
+==11996== Metric result:
+Invocations                               Metric Name                           Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: gpu_square_matrix_mult(int*, int*, int*, int)
+          1                               ldst_issued               Issued Load/Store Instructions    67777519    67777519    67777519
+          1                             ldst_executed             Executed Load/Store Instructions    50364416    50364416    50364416
+          1                        achieved_occupancy                           Achieved Occupancy    0.992385    0.992385    0.992385
+          1                  l1_cache_global_hit_rate                           L1 Global Hit Rate       0.00%       0.00%       0.00%
+          1                   l1_cache_local_hit_rate                            L1 Local Hit Rate       0.00%       0.00%       0.00%
+          1                       l2_l1_read_hit_rate                       L2 Hit Rate (L1 Reads)      49.90%      49.90%      49.90%
+          1                                       ipc                                 Executed IPC    1.430579    1.430579    1.430579
+          1                                issued_ipc                                   Issued IPC    1.650260    1.650260    1.650260
+          1                    issue_slot_utilization                       Issue Slot Utilization      28.58%      28.58%      28.58%
+          1                               issue_slots                                  Issue Slots    98025216    98025216    98025216
+          1                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      12.40%      12.40%      12.40%
+          1                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       3.31%       3.31%       3.31%
+          1                   stall_memory_dependency           Issue Stall Reasons (Data Request)       6.77%       6.77%       6.77%
+          1                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)      34.76%      34.76%      34.76%
