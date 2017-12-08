@@ -287,21 +287,6 @@ int main(int argc, char **argv)
 
 	cout << imgL2error(h_OutputGPU, h_OutputCPU, imageW, imageH) << endl;
 
-	seperableSharedKernelMul(
-		d_Input,
-		d_Output,
-		d_Buffer,
-		d_Kernel,
-		h_Kernel,
-		h_Input,
-		h_OutputGPU,
-		imageW,
-		imageH,
-		iterations,
-		hTimer);
-
-	cout << imgL2error(h_OutputGPU, h_OutputCPU, imageW, imageH) << endl;
-
 	seperableSharedKernelTile(
 		d_Input,
 		d_Output,
