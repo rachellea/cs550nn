@@ -1,0 +1,22 @@
+==11874== NVPROF is profiling process 11874, command: ./matrixMul -wA=1024 -hA=1024 -wB=1024 -hB=1024
+==11874== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==11874== Profiling application: ./matrixMul -wA=1024 -hA=1024 -wB=1024 -hB=1024
+==11874== Profiling result:
+==11874== Metric result:
+Invocations                               Metric Name                           Metric Description         Min         Max         Avg
+Device "Tesla K80 (0)"
+    Kernel: void matrixMulCUDA<int=32>(float*, float*, float*, int, int)
+        301                               ldst_issued               Issued Load/Store Instructions    56858915    56875168    56868858
+        301                             ldst_executed             Executed Load/Store Instructions    46170112    46170112    46170112
+        301                        achieved_occupancy                           Achieved Occupancy    0.994422    0.995156    0.994944
+        301                  l1_cache_global_hit_rate                           L1 Global Hit Rate       0.00%       0.00%       0.00%
+        301                   l1_cache_local_hit_rate                            L1 Local Hit Rate       0.00%       0.00%       0.00%
+        301                       l2_l1_read_hit_rate                       L2 Hit Rate (L1 Reads)      48.15%      48.30%      48.23%
+        301                                       ipc                                 Executed IPC    1.523987    1.524920    1.524421
+        301                                issued_ipc                                   Issued IPC    1.695670    1.696466    1.696067
+        301                    issue_slot_utilization                       Issue Slot Utilization      31.96%      31.98%      31.97%
+        301                               issue_slots                                  Issue Slots    80943589    80962951    80955125
+        301                     stall_exec_dependency   Issue Stall Reasons (Execution Dependency)      11.63%      11.66%      11.64%
+        301                          stall_inst_fetch     Issue Stall Reasons (Instructions Fetch)       3.16%       3.17%       3.17%
+        301                   stall_memory_dependency           Issue Stall Reasons (Data Request)       6.14%       6.21%       6.17%
+        301                           stall_pipe_busy              Issue Stall Reasons (Pipe Busy)      49.82%      49.99%      49.92%
