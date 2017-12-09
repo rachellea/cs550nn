@@ -10,7 +10,7 @@
 #define CACHE_W 16
 #define CACHE_H 16
 #define KERNAL_RAD 8
-
+#define KERNEL_LENGTH (2 * KERNAL_RAD + 1)
 
 extern "C" void setKernel(float *h_Kernel);
 
