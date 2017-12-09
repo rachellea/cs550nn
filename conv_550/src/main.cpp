@@ -480,7 +480,7 @@ int runAll(int argc, char **argv)
 		hTimer);
 
     cout << imgL2error(h_OutputGPU, h_OutputCPU, imageW, imageH) << endl;
-*/
+
 	seperableSharedKernelTileCoales(
 		d_Input,
 		d_Output,
