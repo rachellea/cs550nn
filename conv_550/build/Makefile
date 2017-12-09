@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -124,17 +124,17 @@ conv_550_demo/fast:
 .PHONY : conv_550_demo/fast
 
 #=============================================================================
-# Target rules for targets named conv_prof_nv
+# Target rules for targets named conv_prof_compare_demo
 
 # Build rule for target.
-conv_prof_nv: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 conv_prof_nv
-.PHONY : conv_prof_nv
+conv_prof_compare_demo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 conv_prof_compare_demo
+.PHONY : conv_prof_compare_demo
 
 # fast build rule for target.
-conv_prof_nv/fast:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/build
-.PHONY : conv_prof_nv/fast
+conv_prof_compare_demo/fast:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/build
+.PHONY : conv_prof_compare_demo/fast
 
 src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 
@@ -143,7 +143,7 @@ src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 # target to build an object file
 src/convolutionSeparable_gold.cpp.o:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.o
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.o
 .PHONY : src/convolutionSeparable_gold.cpp.o
 
 src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
@@ -153,7 +153,7 @@ src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
 # target to preprocess a source file
 src/convolutionSeparable_gold.cpp.i:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.i
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.i
 .PHONY : src/convolutionSeparable_gold.cpp.i
 
 src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
@@ -163,7 +163,7 @@ src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
 # target to generate assembly for a file
 src/convolutionSeparable_gold.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/convolutionSeparable_gold.cpp.s
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.s
 .PHONY : src/convolutionSeparable_gold.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -193,32 +193,32 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/main_prof_nv.o: src/main_prof_nv.cpp.o
+src/mainForComparison.o: src/mainForComparison.cpp.o
 
-.PHONY : src/main_prof_nv.o
+.PHONY : src/mainForComparison.o
 
 # target to build an object file
-src/main_prof_nv.cpp.o:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.o
-.PHONY : src/main_prof_nv.cpp.o
+src/mainForComparison.cpp.o:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.o
+.PHONY : src/mainForComparison.cpp.o
 
-src/main_prof_nv.i: src/main_prof_nv.cpp.i
+src/mainForComparison.i: src/mainForComparison.cpp.i
 
-.PHONY : src/main_prof_nv.i
+.PHONY : src/mainForComparison.i
 
 # target to preprocess a source file
-src/main_prof_nv.cpp.i:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.i
-.PHONY : src/main_prof_nv.cpp.i
+src/mainForComparison.cpp.i:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.i
+.PHONY : src/mainForComparison.cpp.i
 
-src/main_prof_nv.s: src/main_prof_nv.cpp.s
+src/mainForComparison.s: src/mainForComparison.cpp.s
 
-.PHONY : src/main_prof_nv.s
+.PHONY : src/mainForComparison.s
 
 # target to generate assembly for a file
-src/main_prof_nv.cpp.s:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/src/main_prof_nv.cpp.s
-.PHONY : src/main_prof_nv.cpp.s
+src/mainForComparison.cpp.s:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.s
+.PHONY : src/mainForComparison.cpp.s
 
 # Help Target
 help:
@@ -226,19 +226,19 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... conv_550_demo"
-	@echo "... conv_prof_nv"
+	@echo "... edit_cache"
+	@echo "... conv_prof_compare_demo"
 	@echo "... src/convolutionSeparable_gold.o"
 	@echo "... src/convolutionSeparable_gold.i"
 	@echo "... src/convolutionSeparable_gold.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/main_prof_nv.o"
-	@echo "... src/main_prof_nv.i"
-	@echo "... src/main_prof_nv.s"
+	@echo "... src/mainForComparison.o"
+	@echo "... src/mainForComparison.i"
+	@echo "... src/mainForComparison.s"
 .PHONY : help
 
 

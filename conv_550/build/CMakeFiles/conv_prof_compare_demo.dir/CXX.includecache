@@ -18,7 +18,7 @@ assert.h
 convolutionSeparable_common.h
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
 
-/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main_prof_nv.cpp
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/mainForComparison.cpp
 cuda_runtime.h
 -
 helper_functions.h

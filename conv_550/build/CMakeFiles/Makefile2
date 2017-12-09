@@ -97,39 +97,39 @@ clean: CMakeFiles/conv_550_demo.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/conv_prof_nv.dir
+# Target rules for target CMakeFiles/conv_prof_compare_demo.dir
 
 # All Build rule for target.
-CMakeFiles/conv_prof_nv.dir/all:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/depend
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=6,7,8,9,10,11,12 "Built target conv_prof_nv"
-.PHONY : CMakeFiles/conv_prof_nv.dir/all
+CMakeFiles/conv_prof_compare_demo.dir/all:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/depend
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles --progress-num=6,7,8,9,10,11,12 "Built target conv_prof_compare_demo"
+.PHONY : CMakeFiles/conv_prof_compare_demo.dir/all
 
 # Include target in all.
-all: CMakeFiles/conv_prof_nv.dir/all
+all: CMakeFiles/conv_prof_compare_demo.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/conv_prof_nv.dir/rule: cmake_check_build_system
+CMakeFiles/conv_prof_compare_demo.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/conv_prof_nv.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/conv_prof_compare_demo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles 0
-.PHONY : CMakeFiles/conv_prof_nv.dir/rule
+.PHONY : CMakeFiles/conv_prof_compare_demo.dir/rule
 
 # Convenience name for target.
-conv_prof_nv: CMakeFiles/conv_prof_nv.dir/rule
+conv_prof_compare_demo: CMakeFiles/conv_prof_compare_demo.dir/rule
 
-.PHONY : conv_prof_nv
-
-# clean rule for target.
-CMakeFiles/conv_prof_nv.dir/clean:
-	$(MAKE) -f CMakeFiles/conv_prof_nv.dir/build.make CMakeFiles/conv_prof_nv.dir/clean
-.PHONY : CMakeFiles/conv_prof_nv.dir/clean
+.PHONY : conv_prof_compare_demo
 
 # clean rule for target.
-clean: CMakeFiles/conv_prof_nv.dir/clean
+CMakeFiles/conv_prof_compare_demo.dir/clean:
+	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/clean
+.PHONY : CMakeFiles/conv_prof_compare_demo.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/conv_prof_compare_demo.dir/clean
 
 .PHONY : clean
 
