@@ -12,6 +12,24 @@ helper_cuda.h
 assert.h
 -
 
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.cpp
+convolutionMethods.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.h
+
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.h
+cuda_runtime.h
+-
+helper_functions.h
+-
+helper_cuda.h
+-
+convolution.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolution.h
+convolutionSeparable_common.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
+iostream
+-
+
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
 
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp
@@ -27,8 +45,8 @@ helper_cuda.h
 -
 convolutionSeparable_common.h
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h
-convolution.h
-/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolution.h
+convolutionMethods.h
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.h
 iostream
 -
 

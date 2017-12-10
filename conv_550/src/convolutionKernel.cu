@@ -1,10 +1,10 @@
 #include "convolution.h"
 
-__constant__ float c_Kernel[KERNEL_LENGTH];
+__constant__ float c_Kernel[KERNEL_LEN];
 
 extern "C" void setKernel(float *h_Kernel)
 {
-	cudaMemcpyToSymbol(c_Kernel, h_Kernel, KERNEL_LENGTH * sizeof(float));
+    cudaMemcpyToSymbol(c_Kernel, h_Kernel, KERNEL_LEN * sizeof(float));
 }
 
 __global__ void convKernelFullNaiveSepKernel(float* d_Input, float* d_Output, float* d_Kernel, int  imageW, int imageH, int kernelR)
@@ -17,15 +17,15 @@ __global__ void convKernelFullNaiveSepKernel(float* d_Input, float* d_Output, fl
     float s = 0;
     float t = 0;
 
-    for (int i = -kernelR; i <= kernelR; i++)
-        for (int j = -kernelR; j <= kernelR; j++)
+    for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++)
+        for (int j = -KERNAL_RAD; j <= KERNAL_RAD; j++)
         {
             t = 0;
 
             if (row  + i >= 0 && row  + i < imageH && col  + j >= 0 && col  + j < imageW )
                 t = d_Input[loc + i * imageW + j];
 
-            s += t * d_Kernel[kernelR - i] * d_Kernel[kernelR - j];
+            s += t * d_Kernel[KERNAL_RAD - i] * d_Kernel[KERNAL_RAD - j];
         }
         d_Output[loc] = s;
 }
@@ -40,15 +40,15 @@ __global__ void convKernelFullNaive(float* d_Input, float* d_Output, float* d_Ke
     float s = 0;
     float t = 0;
 
-    for (int i = -kernelR; i <= kernelR; i++)
-        for (int j = -kernelR; j <= kernelR; j++)
+    for (int i = -KERNAL_RAD; i <= KERNAL_RAD; i++)
+        for (int j = -KERNAL_RAD; j <= KERNAL_RAD; j++)
         {
             t = 0;
 
             if (row  + i >= 0 && row  + i < imageH && col  + j >= 0 && col  + j < imageW )
                 t = d_Input[loc + i * imageW + j];
 
-            s += t * d_Kernel[(kernelR - i) * (kernelR + kernelR + 1) + kernelR - j];
+            s += t * d_Kernel[(KERNAL_RAD - i) * (KERNAL_RAD + KERNAL_RAD + 1) + KERNAL_RAD - j];
         }
         d_Output[loc] = s;
 }

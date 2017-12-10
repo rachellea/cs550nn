@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -123,18 +123,32 @@ conv_550_demo/fast:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/build
 .PHONY : conv_550_demo/fast
 
-#=============================================================================
-# Target rules for targets named conv_prof_compare_demo
+src/convolutionMethods.o: src/convolutionMethods.cpp.o
 
-# Build rule for target.
-conv_prof_compare_demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 conv_prof_compare_demo
-.PHONY : conv_prof_compare_demo
+.PHONY : src/convolutionMethods.o
 
-# fast build rule for target.
-conv_prof_compare_demo/fast:
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/build
-.PHONY : conv_prof_compare_demo/fast
+# target to build an object file
+src/convolutionMethods.cpp.o:
+	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionMethods.cpp.o
+.PHONY : src/convolutionMethods.cpp.o
+
+src/convolutionMethods.i: src/convolutionMethods.cpp.i
+
+.PHONY : src/convolutionMethods.i
+
+# target to preprocess a source file
+src/convolutionMethods.cpp.i:
+	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionMethods.cpp.i
+.PHONY : src/convolutionMethods.cpp.i
+
+src/convolutionMethods.s: src/convolutionMethods.cpp.s
+
+.PHONY : src/convolutionMethods.s
+
+# target to generate assembly for a file
+src/convolutionMethods.cpp.s:
+	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionMethods.cpp.s
+.PHONY : src/convolutionMethods.cpp.s
 
 src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 
@@ -143,7 +157,6 @@ src/convolutionSeparable_gold.o: src/convolutionSeparable_gold.cpp.o
 # target to build an object file
 src/convolutionSeparable_gold.cpp.o:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.o
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.o
 .PHONY : src/convolutionSeparable_gold.cpp.o
 
 src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
@@ -153,7 +166,6 @@ src/convolutionSeparable_gold.i: src/convolutionSeparable_gold.cpp.i
 # target to preprocess a source file
 src/convolutionSeparable_gold.cpp.i:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.i
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.i
 .PHONY : src/convolutionSeparable_gold.cpp.i
 
 src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
@@ -163,7 +175,6 @@ src/convolutionSeparable_gold.s: src/convolutionSeparable_gold.cpp.s
 # target to generate assembly for a file
 src/convolutionSeparable_gold.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/convolutionSeparable_gold.cpp.s
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/convolutionSeparable_gold.cpp.s
 .PHONY : src/convolutionSeparable_gold.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -193,52 +204,24 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/conv_550_demo.dir/build.make CMakeFiles/conv_550_demo.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/mainForComparison.o: src/mainForComparison.cpp.o
-
-.PHONY : src/mainForComparison.o
-
-# target to build an object file
-src/mainForComparison.cpp.o:
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.o
-.PHONY : src/mainForComparison.cpp.o
-
-src/mainForComparison.i: src/mainForComparison.cpp.i
-
-.PHONY : src/mainForComparison.i
-
-# target to preprocess a source file
-src/mainForComparison.cpp.i:
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.i
-.PHONY : src/mainForComparison.cpp.i
-
-src/mainForComparison.s: src/mainForComparison.cpp.s
-
-.PHONY : src/mainForComparison.s
-
-# target to generate assembly for a file
-src/mainForComparison.cpp.s:
-	$(MAKE) -f CMakeFiles/conv_prof_compare_demo.dir/build.make CMakeFiles/conv_prof_compare_demo.dir/src/mainForComparison.cpp.s
-.PHONY : src/mainForComparison.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... conv_550_demo"
 	@echo "... edit_cache"
-	@echo "... conv_prof_compare_demo"
+	@echo "... conv_550_demo"
+	@echo "... rebuild_cache"
+	@echo "... src/convolutionMethods.o"
+	@echo "... src/convolutionMethods.i"
+	@echo "... src/convolutionMethods.s"
 	@echo "... src/convolutionSeparable_gold.o"
 	@echo "... src/convolutionSeparable_gold.i"
 	@echo "... src/convolutionSeparable_gold.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/mainForComparison.o"
-	@echo "... src/mainForComparison.i"
-	@echo "... src/mainForComparison.s"
 .PHONY : help
 
 
