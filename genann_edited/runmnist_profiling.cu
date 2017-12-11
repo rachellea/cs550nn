@@ -42,14 +42,14 @@ int main(int argc, char *argv[])
 
     int i;
 
-    /* New network with 2 inputs,
-    * 1 hidden layer of 2 neurons,
-    * and 1 output. */
+    /* New network with 28x28 MNIST input,
+    * 3 hidden layers of 128 neurons,
+    * and LABELS_SIZE outputs. */
     genann *ann = genann_init(28*28, 3, 128, LABELS_SIZE);
     //printf("%d\n", cnt);
     double * arr = (double*)malloc(sizeof(double) * LABELS_SIZE);
 
-    /* Train on the four labeled data points many times. */
+    /* Train on 100 training examples for 1 epoch. */
     for (i = 0; i < 1; ++i) {
         //printf("big i %d\n", i);
         for (int j = 0; j < 100; j++) {
