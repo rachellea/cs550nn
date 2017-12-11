@@ -72,9 +72,9 @@ set(generated_cubin_file_internal "/home/lesia/courses/Arch/architectureproject/
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda-8.0/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -arch=sm_30;--use_fast_math;-O3;--ptxas-options=--verbose ;; ) # list
 # Build specific configuration flags
-set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
+set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64;-DCUDA_BUILD;-DCUDA_BUILD) # list
 set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda-8.0/include;-I/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550;-I/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src;-I/usr/local/cuda-8.0/include;-I/usr/local/cuda-8.0/samples/common/inc;-I/home/lesia/NVIDIA_CUDA-8.0_Samples/common/inc") # list (needs to be in quotes to handle spaces properly).
@@ -88,9 +88,9 @@ endif()
 # This is the list of host compilation flags.  It C or CXX should already have
 # been chosen by FindCUDA.cmake.
 set(CMAKE_HOST_FLAGS  )
-set(CMAKE_HOST_FLAGS_RELEASE -O3 -DNDEBUG)
 set(CMAKE_HOST_FLAGS_DEBUG -g)
 set(CMAKE_HOST_FLAGS_MINSIZEREL -Os -DNDEBUG)
+set(CMAKE_HOST_FLAGS_RELEASE -O3 -DNDEBUG)
 set(CMAKE_HOST_FLAGS_RELWITHDEBINFO -O2 -g -DNDEBUG)
 
 # Take the compiler flags and package them up to be sent to the compiler via -Xcompiler

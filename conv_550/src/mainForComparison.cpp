@@ -160,9 +160,9 @@ int main(int argc, char **argv)
     *d_Kernel;
 
 
-	const int imageW = 3072;
-	const int imageH = 3072;
-    const int iterations = 1;
+    const int imageW = 3072;
+    const int imageH = 3072;
+    const int iterations = 10;
 
     StopWatchInterface *hTimer = NULL;
 
@@ -200,7 +200,7 @@ int main(int argc, char **argv)
         h_Input[i] = (float)(rand() % 16);
     }
 
-    /*seperableConvolutionCPU(
+    seperableConvolutionCPU(
 		h_Input,
 		h_OutputCPU,
 		h_Buffer,
@@ -301,7 +301,7 @@ int main(int argc, char **argv)
 		hTimer);
 
     cout << imgL2error(h_OutputGPU, h_OutputCPU, imageW, imageH) << endl;
-*/
+
 	seperableSharedKernelTileCoales(
 		d_Input,
 		d_Output,
