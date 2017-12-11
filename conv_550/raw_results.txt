@@ -1,0 +1,416 @@
+
+
+
+Image size: 3072 3072
+Kernel length: 3
+convolutionSeparableCPU, Throughput = 117.4380 MPixels/sec, Time = 0.080358838 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1502.7889 MPixels/sec, Time = 0.006279780 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 1145.6286 MPixels/sec, Time = 0.008237560 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 1520.1846 MPixels/sec, Time = 0.006207920 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1575.2900 MPixels/sec, Time = 0.005990760 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1549.4722 MPixels/sec, Time = 0.006090580 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1430.1581 MPixels/sec, Time = 0.006598700 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1452.9340 MPixels/sec, Time = 0.006495260 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 5
+convolutionSeparableCPU, Throughput = 73.8593 MPixels/sec, Time = 0.127772441 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1530.6488 MPixels/sec, Time = 0.006165480 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 552.2619 MPixels/sec, Time = 0.017088240 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 1026.0775 MPixels/sec, Time = 0.009197340 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1534.9656 MPixels/sec, Time = 0.006148140 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1567.4146 MPixels/sec, Time = 0.006020860 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1398.0226 MPixels/sec, Time = 0.006750380 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1426.5564 MPixels/sec, Time = 0.006615360 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 7
+convolutionSeparableCPU, Throughput = 53.3318 MPixels/sec, Time = 0.176952207 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1527.1217 MPixels/sec, Time = 0.006179720 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 352.9368 MPixels/sec, Time = 0.026739021 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 1129.2901 MPixels/sec, Time = 0.008356740 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1545.7465 MPixels/sec, Time = 0.006105260 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1547.7745 MPixels/sec, Time = 0.006097260 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1396.5579 MPixels/sec, Time = 0.006757460 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1451.2314 MPixels/sec, Time = 0.006502880 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 9
+convolutionSeparableCPU, Throughput = 41.4492 MPixels/sec, Time = 0.227680918 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1530.4303 MPixels/sec, Time = 0.006166360 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 224.4905 MPixels/sec, Time = 0.042038242 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 989.2704 MPixels/sec, Time = 0.009539540 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1530.0580 MPixels/sec, Time = 0.006167860 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1533.3696 MPixels/sec, Time = 0.006154540 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1397.3974 MPixels/sec, Time = 0.006753400 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1438.3627 MPixels/sec, Time = 0.006561060 s, Size = 9437184 Pixels
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 11
+convolutionSeparableCPU, Throughput = 33.9557 MPixels/sec, Time = 0.277925957 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1502.5066 MPixels/sec, Time = 0.006280960 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 153.1083 MPixels/sec, Time = 0.061637319 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 873.7697 MPixels/sec, Time = 0.010800540 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1448.7763 MPixels/sec, Time = 0.006513900 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1451.6824 MPixels/sec, Time = 0.006500860 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1396.1612 MPixels/sec, Time = 0.006759380 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1428.5430 MPixels/sec, Time = 0.006606160 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 13
+convolutionSeparableCPU, Throughput = 28.6740 MPixels/sec, Time = 0.329120312 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1497.6139 MPixels/sec, Time = 0.006301480 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 114.0351 MPixels/sec, Time = 0.082756855 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 775.4491 MPixels/sec, Time = 0.012169960 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1425.0312 MPixels/sec, Time = 0.006622440 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1402.9817 MPixels/sec, Time = 0.006726520 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1371.0859 MPixels/sec, Time = 0.006883000 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1427.8600 MPixels/sec, Time = 0.006609320 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 15
+convolutionSeparableCPU, Throughput = 25.0756 MPixels/sec, Time = 0.376348633 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1497.7280 MPixels/sec, Time = 0.006301000 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 87.2205 MPixels/sec, Time = 0.108199180 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 708.5483 MPixels/sec, Time = 0.013319041 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1341.2674 MPixels/sec, Time = 0.007036020 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1362.3847 MPixels/sec, Time = 0.006926960 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1359.6014 MPixels/sec, Time = 0.006941140 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1421.7808 MPixels/sec, Time = 0.006637580 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+
+
+Image size: 3072 3072
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 21.9900 MPixels/sec, Time = 0.429158672 s, Size = 9437184 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1456.2117 MPixels/sec, Time = 0.006480640 s, Size = 9437184 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 70.6647 MPixels/sec, Time = 0.133548838 s, Size = 9437184 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 663.1436 MPixels/sec, Time = 0.014230980 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1239.7805 MPixels/sec, Time = 0.007611980 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1240.4878 MPixels/sec, Time = 0.007607640 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1391.9233 MPixels/sec, Time = 0.006779960 s, Size = 9437184 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1450.4062 MPixels/sec, Time = 0.006506580 s, Size = 9437184 Pixels
+
+
+
+
+
+
+
+
+
+
+
+Image size: 128 128
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 19.6758 MPixels/sec, Time = 0.000832700 s, Size = 16384 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 877.0878 MPixels/sec, Time = 0.000018680 s, Size = 16384 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 72.1444 MPixels/sec, Time = 0.000227100 s, Size = 16384 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 540.3694 MPixels/sec, Time = 0.000030320 s, Size = 16384 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 572.8672 MPixels/sec, Time = 0.000028600 s, Size = 16384 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 855.1148 MPixels/sec, Time = 0.000019160 s, Size = 16384 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 991.7676 MPixels/sec, Time = 0.000016520 s, Size = 16384 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 887.5406 MPixels/sec, Time = 0.000018460 s, Size = 16384 Pixels
+
+
+
+
+
+
+Image size: 256 256
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 21.3444 MPixels/sec, Time = 0.003070400 s, Size = 65536 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1424.0764 MPixels/sec, Time = 0.000046020 s, Size = 65536 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 77.1956 MPixels/sec, Time = 0.000848960 s, Size = 65536 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 768.6606 MPixels/sec, Time = 0.000085260 s, Size = 65536 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1071.5500 MPixels/sec, Time = 0.000061160 s, Size = 65536 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1264.6854 MPixels/sec, Time = 0.000051820 s, Size = 65536 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1580.7043 MPixels/sec, Time = 0.000041460 s, Size = 65536 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1350.7007 MPixels/sec, Time = 0.000048520 s, Size = 65536 Pixels
+
+
+
+
+
+
+
+Image size: 512 512
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 22.0194 MPixels/sec, Time = 0.011905160 s, Size = 262144 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1648.0825 MPixels/sec, Time = 0.000159060 s, Size = 262144 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 73.5067 MPixels/sec, Time = 0.003566260 s, Size = 262144 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 669.3152 MPixels/sec, Time = 0.000391660 s, Size = 262144 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1222.3445 MPixels/sec, Time = 0.000214460 s, Size = 262144 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1279.1256 MPixels/sec, Time = 0.000204940 s, Size = 262144 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1506.9211 MPixels/sec, Time = 0.000173960 s, Size = 262144 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1525.5121 MPixels/sec, Time = 0.000171840 s, Size = 262144 Pixels
+
+
+
+
+
+
+
+Image size: 1024 1024
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 22.0775 MPixels/sec, Time = 0.047495142 s, Size = 1048576 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1509.0030 MPixels/sec, Time = 0.000694880 s, Size = 1048576 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 69.4363 MPixels/sec, Time = 0.015101260 s, Size = 1048576 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 679.1911 MPixels/sec, Time = 0.001543860 s, Size = 1048576 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1235.3046 MPixels/sec, Time = 0.000848840 s, Size = 1048576 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1244.2461 MPixels/sec, Time = 0.000842740 s, Size = 1048576 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1442.2931 MPixels/sec, Time = 0.000727020 s, Size = 1048576 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1454.9814 MPixels/sec, Time = 0.000720680 s, Size = 1048576 Pixels
+
+
+
+
+
+
+Image size: 2048 2048
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 21.9513 MPixels/sec, Time = 0.191072832 s, Size = 4194304 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1489.0950 MPixels/sec, Time = 0.002816680 s, Size = 4194304 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 70.1318 MPixels/sec, Time = 0.059806060 s, Size = 4194304 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 675.8597 MPixels/sec, Time = 0.006205880 s, Size = 4194304 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1251.1869 MPixels/sec, Time = 0.003352260 s, Size = 4194304 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1259.9973 MPixels/sec, Time = 0.003328820 s, Size = 4194304 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1395.6543 MPixels/sec, Time = 0.003005260 s, Size = 4194304 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1466.4989 MPixels/sec, Time = 0.002860080 s, Size = 4194304 Pixels
+
+
+
+
+
+
+
+Image size: 3584 3584
+Kernel length: 17
+convolutionSeparableCPU, Throughput = 21.9771 MPixels/sec, Time = 0.584475430 s, Size = 12845056 Pixels
+convolutionSeparableGPUNVIDIA, Throughput = 1426.4169 MPixels/sec, Time = 0.009005120 s, Size = 12845056 Pixels
+
+
+convolutionFullNaiveGPU, Throughput = 68.0713 MPixels/sec, Time = 0.188700020 s, Size = 12845056 Pixels
+
+
+convolutionSeparableNaiveGPU, Throughput = 643.9122 MPixels/sec, Time = 0.019948459 s, Size = 12845056 Pixels
+
+
+convolutionSeparableSharedGPU, Throughput = 1190.7220 MPixels/sec, Time = 0.010787620 s, Size = 12845056 Pixels
+
+
+convolutionSeparableSharedUnrollGPU, Throughput = 1192.3623 MPixels/sec, Time = 0.010772780 s, Size = 12845056 Pixels
+
+
+convolutionSeparableSharedTileGPU, Throughput = 1329.4132 MPixels/sec, Time = 0.009662200 s, Size = 12845056 Pixels
+
+
+convolutionSeparableSharedTileCoalesGPU, Throughput = 1413.6449 MPixels/sec, Time = 0.009086480 s, Size = 12845056 Pixels
+
+
+
+
+
