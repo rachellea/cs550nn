@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     double * arr = (double*)malloc(sizeof(double) * LABELS_SIZE);
 
     /* Train on 100 training examples for 1 epoch. */
-    for (i = 0; i < 1; ++i) {
+    for (i = 0; i < 5; ++i) {
         //printf("big i %d\n", i);
         for (int j = 0; j < 100; j++) {
             memset(arr, 0, sizeof(double) * LABELS_SIZE);

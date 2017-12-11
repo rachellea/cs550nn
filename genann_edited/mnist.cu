@@ -194,10 +194,10 @@ int loadMNISTDataUpTo(const char *image_filename, const char *label_filename,
         return_code = -2;
     }
 
-    uint* labelsArray = (uint*)malloc(sizeof(uint) * image_count);
+    unsigned int* labelsArray = (unsigned int*)malloc(sizeof(unsigned int) * image_count);
 
     // count how many labelas are less than LABELS_SIZE
-    uint countUpTo = 0;
+    unsigned int countUpTo = 0;
     for (i = 0; i < image_count; ++i) {
         fread(temp, 1, 1, labelFile);
         labelsArray[i] = temp[0];
