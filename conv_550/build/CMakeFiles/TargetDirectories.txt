@@ -1,4 +1,3 @@
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/edit_cache.dir
-/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/rebuild_cache.dir
 /home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_550_demo.dir
-/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/conv_prof_nv.dir
+/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/CMakeFiles/rebuild_cache.dir

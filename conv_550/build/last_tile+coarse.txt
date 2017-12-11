@@ -1,0 +1,47 @@
+==15427== NVPROF is profiling process 15427, command: ./conv_550_demo
+==15427== Some kernel(s) will be replayed on device 0 in order to collect all events/metrics.
+==15427== Profiling application: ./conv_550_demo
+==15427== Profiling result:
+==15427== Metric result:
+Invocations                               Metric Name                             Metric Description         Min         Max         Avg
+Device "Quadro K620 (0)"
+    Kernel: convKernelSeparableColumnSharedTileCoales(float*, float*, int, int)
+          2                        achieved_occupancy                             Achieved Occupancy    0.941473    0.943998    0.942735
+          2                                       ipc                                   Executed IPC    2.403777    2.448823    2.426300
+          2                            gld_throughput                         Global Load Throughput  23.987GB/s  24.257GB/s  24.120GB/s
+          2                          gld_transactions                       Global Load Transactions      520192      520192      520192
+          2              gld_transactions_per_request           Global Load Transactions Per Request    7.937500    7.937500    7.937500
+          2                    shared_load_throughput                  Shared Memory Load Throughput  205.50GB/s  207.81GB/s  206.65GB/s
+          2                   shared_store_throughput                 Shared Memory Store Throughput  24.176GB/s  24.448GB/s  24.310GB/s
+          2                  shared_load_transactions                       Shared Load Transactions      557056      557056      557056
+          2      shared_load_transactions_per_request    Shared Memory Load Transactions Per Request    1.000000    1.000000    1.000000
+          2                 shared_store_transactions                      Shared Store Transactions       65536       65536       65536
+          2     shared_store_transactions_per_request   Shared Memory Store Transactions Per Request    1.000000    1.000000    1.000000
+          2                                stall_sync          Issue Stall Reasons (Synchronization)       7.14%       7.41%       7.28%
+          2                    local_store_throughput                  Local Memory Store Throughput  0.00000B/s  0.00000B/s  0.00000B/s
+          2                  local_store_transactions                       Local Store Transactions           0           0           0
+          2      local_store_transactions_per_request    Local Memory Store Transactions Per Request    0.000000    0.000000    0.000000
+          2                     local_load_throughput                   Local Memory Load Throughput  0.00000B/s  0.00000B/s  0.00000B/s
+          2                   local_load_transactions                        Local Load Transactions           0           0           0
+          2       local_load_transactions_per_request     Local Memory Load Transactions Per Request    0.000000    0.000000    0.000000
+          2                           stall_pipe_busy                Issue Stall Reasons (Pipe Busy)       0.94%       1.01%       0.97%
+    Kernel: convKernelSeparableRowSharedTileCoales(float*, float*, int, int)
+          2                        achieved_occupancy                             Achieved Occupancy    0.946223    0.950064    0.948143
+          2                                       ipc                                   Executed IPC    1.683145    1.684254    1.683700
+          2                            gld_throughput                         Global Load Throughput  18.602GB/s  18.608GB/s  18.604GB/s
+          2                          gld_transactions                       Global Load Transactions      520192      520192      520192
+          2              gld_transactions_per_request           Global Load Transactions Per Request    7.937500    7.937500    7.937500
+          2                    shared_load_throughput                  Shared Memory Load Throughput  318.73GB/s  318.83GB/s  318.78GB/s
+          2                   shared_store_throughput                 Shared Memory Store Throughput  37.498GB/s  37.510GB/s  37.502GB/s
+          2                  shared_load_transactions                       Shared Load Transactions     1114112     1114112     1114112
+          2      shared_load_transactions_per_request    Shared Memory Load Transactions Per Request    2.000000    2.000000    2.000000
+          2                 shared_store_transactions                      Shared Store Transactions      131072      131072      131072
+          2     shared_store_transactions_per_request   Shared Memory Store Transactions Per Request    2.000000    2.000000    2.000000
+          2                                stall_sync          Issue Stall Reasons (Synchronization)      13.14%      13.52%      13.33%
+          2                    local_store_throughput                  Local Memory Store Throughput  0.00000B/s  0.00000B/s  0.00000B/s
+          2                  local_store_transactions                       Local Store Transactions           0           0           0
+          2      local_store_transactions_per_request    Local Memory Store Transactions Per Request    0.000000    0.000000    0.000000
+          2                     local_load_throughput                   Local Memory Load Throughput  0.00000B/s  0.00000B/s  0.00000B/s
+          2                   local_load_transactions                        Local Load Transactions           0           0           0
+          2       local_load_transactions_per_request     Local Memory Load Transactions Per Request    0.000000    0.000000    0.000000
+          2                           stall_pipe_busy                Issue Stall Reasons (Pipe Busy)       3.13%       3.51%       3.32%

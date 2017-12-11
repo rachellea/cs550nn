@@ -27,16 +27,6 @@
             <DistClean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="rebuild_cache">
-         <Option working_dir="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build" />
-         <Option type="4" />
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
       <Target title="conv_550_demo">
          <Option output="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/conv_550_demo" prefix_auto="0" extension_auto="0" />
          <Option working_dir="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build" />
@@ -95,59 +85,11 @@
             <DistClean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="conv_prof_nv">
-         <Option output="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/conv_prof_nv" prefix_auto="0" extension_auto="0" />
+      <Target title="rebuild_cache">
          <Option working_dir="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build" />
-         <Option object_output="./" />
-         <Option type="1" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add option="-DCUDA_BUILD" />
-            <Add directory="/home/lesia/NVIDIA_CUDA-8.0_Samples/common/inc" />
-            <Add directory="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550" />
-            <Add directory="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src" />
-            <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/5" />
-            <Add directory="/usr/include/c++/5/backward" />
-            <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-            <Add directory="/usr/local/cuda-8.0/include" />
-            <Add directory="/usr/local/cuda-8.0/samples/common/inc" />
-            <Add directory="/usr/local/include" />
-         </Compiler>
+         <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 conv_prof_nv" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="conv_prof_nv/fast">
-         <Option output="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/conv_prof_nv" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build" />
-         <Option object_output="./" />
-         <Option type="1" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add option="-DCUDA_BUILD" />
-            <Add directory="/home/lesia/NVIDIA_CUDA-8.0_Samples/common/inc" />
-            <Add directory="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550" />
-            <Add directory="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src" />
-            <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/5" />
-            <Add directory="/usr/include/c++/5/backward" />
-            <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
-            <Add directory="/usr/local/cuda-8.0/include" />
-            <Add directory="/usr/local/cuda-8.0/samples/common/inc" />
-            <Add directory="/usr/local/include" />
-         </Compiler>
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 conv_prof_nv/fast" />
+            <Build command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
             <CompileFile command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/build/Makefile&quot;  VERBOSE=1 clean" />
@@ -156,41 +98,36 @@
       </Build>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolution.h">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionKernel.cu">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
+      </Unit>
+      <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.cpp">
+         <Option target="conv_550_demo"/>
+      </Unit>
+      <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionMethods.h">
+         <Option target="conv_550_demo"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable.cu">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_common.h">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/convolutionSeparable_gold.cpp">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main.cpp">
          <Option target="conv_550_demo"/>
       </Unit>
-      <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/main_prof_nv.cpp">
-         <Option target="conv_prof_nv"/>
-      </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/stb_image.h">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/stb_image_resize.h">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/src/stb_image_write.h">
          <Option target="conv_550_demo"/>
-         <Option target="conv_prof_nv"/>
       </Unit>
       <Unit filename="/home/lesia/courses/Arch/architectureproject/cs550nn/conv_550/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />
