@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "genann.h"
 #include "mnist.h"
+#include <time.h>
 
 #define SIZE 28
 
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
     //printf("%d\n", cnt);
     double * arr = (double*)malloc(sizeof(double) * LABELS_SIZE);
 
+    clock_t begin = clock();
     /* Train on the four labeled data points many times. */
     for (i = 0; i < 5; ++i) {
         //printf("big i %d\n", i);
@@ -62,7 +64,7 @@ int main(int argc, char *argv[])
 
     int correct = 0;
 
-    for (int j = 0; j < cnt; j++) {
+    for (int j = 0; j < 100; j++) {
         const double * out = genann_run(ann, data_ann[j].data);
         int max = 0;
         for (int i = 1; i < LABELS_SIZE; i++) {
@@ -73,6 +75,9 @@ int main(int argc, char *argv[])
         if (max == (int)data_ann[j].label) correct++;
     }
 
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("time: %lf\n", time_spent);
     printf("Correct percentage: %lf\n", 1.0 * correct / cnt * 100);
 
     //char c;
