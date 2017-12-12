@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     double * arr = (double*)malloc(sizeof(double) * LABELS_SIZE);
 
     /* Train on 100 training examples for 1 epoch. */
-    for (i = 0; i < 5; ++i) {
+    for (i = 0; i < 1; ++i) {
         //printf("big i %d\n", i);
         for (int j = 0; j < 100; j++) {
             memset(arr, 0, sizeof(double) * LABELS_SIZE);
@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
     }
 
     int correct = 0;
-
-    for (int j = 0; j < cnt; j++) {
+    /*Test on 100 examples*/
+    for (int j = 0; j < 100; j++) {
         const double * out = genann_run(ann, data_ann[j].data);
         int max = 0;
         for (int i = 1; i < LABELS_SIZE; i++) {
